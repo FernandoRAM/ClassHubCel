@@ -197,7 +197,7 @@ var convocatorias = "<!-- Carrusel -->"+
 
    " <!-- Item Carrusel (Becas)-->"+
    " <ons-carousel-item>"+
-     " <ons-card style='height: 95%; margin-top: 15px;'>"+
+     " <ons-card style='height: 95%; margin-top: 15px;' onclick='verConvocatoria()'>"+
         "<center><h4>Becas</h4></center>"+
         "<!-- Item tarjeta -->"+
         "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>"+
@@ -306,7 +306,7 @@ function horarios(){
    " <ons-carousel-item>"+
         "<ons-card style='height: 95%; margin-top: 15px; overflow-y:scroll;'>"+
          " <center><h4>Tutores</h4></center><br><br>"+
-           " <ons-card>"+
+           " <ons-card onclick='verTutor()'>"+
              " <span>Eduardo Aguirre Caracheo<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> "+
            " </ons-card>"+
 
@@ -423,11 +423,52 @@ function calendario(){
  		document.getElementById('contenido').innerHTML = cal;
 }
 
-/*
-Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Calendario.
-Autor: Fernando Rinco3
-Versión: 1.0
+/**
+*Nombre de la funcion:
+*Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Calendario.
+*Autor: Fernando Rincon
+*Versión: 1.0
 */
+
+function verConvocatoria(){
+
+  var conv = 
+
+          "<ons-card style='height: 95%; margin-top: 15px;'>"+
+           " <center><h3>Título Convocatoria</h3> "+
+              "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique optio quibusdam error, doloremque est quasi necessitatibus atque ab et quae eveniet voluptate suscipit deserunt, facere commodi nostrum labore totam quis.</p>"+
+            " </center>" +
+                "<a href=' https://www.uaq.mx/informatica/descargas/Convocatoria_MIS06_2019_A.pdf'> https://www.uaq.mx/informatica/descargas/Convocatoria_MIS06_2019_A.pdf</a>"+
+               "<center> "+
+               " <img src='img/convocatoria.jpg' style='width: 300px !important;'> "+
+             " </center>"+
+         "</ons-card> ";
+
+      document.getElementById('contenido').innerHTML = '';
+      document.getElementById('contenido').innerHTML = conv;
+}
+/**
+*Nombre de la funcion: verConvocatoria
+*Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la convocatoria seleccionada.
+*Autor: Fernando Rincon
+*Versión: 1.0
+*/
+
+function verTutor(){
+
+   var tut = 
+   "<ons-card style='height: 95%; margin-top: 15px;'>"+
+    "<center><img src='img/lalo.jpg' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>"+
+    "<h4>Eduardo Aguirre Caracheo </h4><br></center>"+
+    "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>"+
+    "<p>Contacto: 4426172635</p>"+
+   " <p>Cubículo: Centro de Desarrollo</p>"+
+   "</ons-card>";
+  "</ons-card>";
+    document.getElementById('contenido').innerHTML = '';
+  document.getElementById('contenido').innerHTML = tut;
+}
+
 
 function nuevoForo(){
 
