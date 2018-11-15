@@ -1,0 +1,53 @@
+* {
+    border: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+body {
+    background-color: #ECEFF1;
+    height: 100%;
+}
+
+.contenido {
+    height: calc(100% - 105px);
+    overflow-y: scroll;
+
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    margin-top: 30px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    color: black;
+}
+
+.desc{
+    width: 98%;
+    border-radius: 5px;
+    border:solid black;
+    height: 200px;
+}
+.titulo{
+    width: 50%;
+    border-radius: 5px;
+    border:solid black;
+}
+
+button {
+    background-color: #FE9900;
+    color: white;
+}
+.fotoTutor{
+    height: 80px;
+    width: 80px;
+    border-radius: 100px;
+    margin-left: 15px;
+
+}
