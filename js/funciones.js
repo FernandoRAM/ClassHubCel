@@ -381,7 +381,7 @@ function calendario(){
 
 		"<center><h3>Calendario de actividades</h3></center>"+
 
-   " <ons-card onclick='window.location.href = 'calendario.html?id_event='' >"+
+   " <ons-card onclick='verEvento()'>"+
        " <center>"+
            " <b>Invasión Troyana</b>"+
            " <br><b>24 de Noviembre</b>"+
@@ -495,12 +495,42 @@ var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;
 
   " <ons-input style='width: 250px;margin-left: 20px;' id='comentario' type='text' placeholder='Comentar...'></ons-input><ons-button modifier='quiet'>Enviar</ons-button>";
 
-     document.getElementById('contenido').innerHTML = '';
+  document.getElementById('contenido').innerHTML = '';
   document.getElementById('contenido').innerHTML = disc;
 
 }
+/**
+*Nombre de la funcion: verDiscusion
+*Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la discusión seleccionada.
+*Autor: Fernando Rincon
+*Versión: 1.0
+*/
 
 
+function verEvento(){
+  var eve = "<center><h3>Copa Robots Troyanos</h3></center>"+
+  "<ons-card>"+
+    "<h4>Fecha:</h4> 27 de Noviembre de 2018"+
+    "<h4>Lugar:</h4> Cancha de Usos Múltiples"+
+    "<h4>Hora:</h4> 10:00 a.m. <br><br>"+
+    "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>"+
+    "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='img/carritos.jpg' > </center>"+
+  "</ons-card>";
+  document.getElementById('contenido').innerHTML = '';
+  document.getElementById('contenido').innerHTML = eve;
+}
+/**
+*Nombre de la funcion: verEvento
+*Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del evento seleccionado.
+*Autor: Fernando Rincon
+*Versión: 1.0
+*/
+
+function verImagenGrande(id){
+  var imagen = document.getElementById(id);
+    imagen.style.height = '100%';
+    imagen.style.width = '100%';
+}
 function nuevoForo(){
 
   console.log('No me piques we'); 
