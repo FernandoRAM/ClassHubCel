@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html onload="test()">
+<head>
+	<title>Inicio</title>
+	<meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="css/estilosTabla.css">
+	<link rel="stylesheet" type="text/css" href="css/onsenui.css">
+ 	 <link rel="stylesheet" type="text/css" href="css/old-onsen-css-components.min.css">
+  <script src="js/onsenui.min.js"></script>
+  <script src="js/funciones.js"></script>
+</head>
+<body>
+
+<div class="toolbar toolbar--material">
+	<div class="toolbar__left toolbar--material__left">
+	</div>
+	 
+	  <div class="toolbar__right toolbar--material__right">
+		<span class="toolbar-button toolbar-button--material_right">
+	     	<i class="zmdi zmdi-power zmdi-hc-lg "style="color:white;"></i>
+	    </span>
+  </div>
+</div>
+	
+<div id="contenido" class="contenido" >
+  
+    <ons-card style="height: 85%; margin-top: 15px; overflow-y: scroll;">
+      <center><h3>Título de Discusión</h3> </center> 
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique optio quibusdam error, doloremque est quasi </p>
+       
+          
+         <center> 
+          <img src="img/llaves.jpg" style="width: 300px !important;"> 
+        </center>
+          <h4>Comentarios:</h4>
+          <p>Ruben Burgos: Son mias muchas gracias.</p>
+          <p>Fernando Rincon: No hay de que.</p>
+      
+    </ons-card><br>
+
+    <ons-input style="width: 250px;margin-left: 20px;" id="comentario" type="text" placeholder="Comentar..."></ons-input><ons-button modifier="quiet">Enviar</ons-button>
+
+
+
+</div>
+
+  
+
+<div class="tabbar">
+  <label class="tabbar__item" onclick="calendario()">
+    <input type="radio" name="tabbar-b" checked="checked">
+    <button class="tabbar__button">
+      <i class="zmdi zmdi-calendar zmdi-hc-lg"></i>
+    </button>
+  </label>
+
+  <label class="tabbar__item" onclick="foro()">
+    <input type="radio" name="tabbar-b" checked="checked">
+    <button class="tabbar__button">
+      <i class="zmdi zmdi-comments zmdi-hc-lg"></i>
+    </button>
+  </label>
+
+  <label class="tabbar__item" onclick="horarios()">
+    <input type="radio" name="tabbar-b" checked="checked">
+    <button class="tabbar__button">
+      <i class="zmdi zmdi-time zmdi-hc-lg"></i>
+    </button>
+  </label>
+
+  <label class="tabbar__item" onclick="convocatorias()">
+    <input type="radio" name="tabbar-b">
+    <button class="tabbar__button">
+      <i class="zmdi zmdi-money zmdi-hc-lg"></i>
+    </button>
+  </label>
+
+  <label class="tabbar__item">
+    <input type="radio" name="tabbar-b">
+    <button class="tabbar__button">
+    	<i class="zmdi zmdi-alert-circle zmdi-hc-lg"></i>
+    </button>
+  </label>
+
+</div>
+
+
+
+
+</body>
+</html>

@@ -48,6 +48,8 @@ Versión: 1.0
 
 
 
+
+
 /*
 * Función: pre_hash(str)
 * @author: Mendoza Burgos Rubén Andrés (ramby)
@@ -345,8 +347,8 @@ function foro(){
          " <ons-icon icon='md-plus'></ons-icon> "+
     " </ons-fab>"+
 	  "  <!-- Item -->"+
-	 "   <ons-card>"+
-	     "<span>Llaves perdidas<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> "+
+	 "   <ons-card onclick='verDiscusion()'>"+
+	     "<span >Llaves perdidas<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> "+
 	  " </ons-card>"+
 	  "  <!-- Item -->"+
 	 "   <ons-card>"+
@@ -467,6 +469,35 @@ function verTutor(){
   "</ons-card>";
     document.getElementById('contenido').innerHTML = '';
   document.getElementById('contenido').innerHTML = tut;
+}
+/**
+*Nombre de la funcion: verConvocatoria
+*Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del tutor seleccionado.
+*Autor: Fernando Rincon
+*Versión: 1.0
+*/
+
+function verDiscusion(){
+
+var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>"+
+     "<center><h3>Título de Discusión</h3> </center>"+
+       "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique optio quibusdam error, doloremque est quasi </p>"+
+       
+          
+       " <center>" +
+        " <img src='img/llaves.jpg' style='width: 300px !important;'>"+
+      " </center>"+
+        " <h4>Comentarios:</h4>"+
+        " <p>Ruben Burgos: Son mias muchas gracias.</p>"+
+         "<p>Fernando Rincon: No hay de que.</p>"+
+      
+  " </ons-card><br>"+
+
+  " <ons-input style='width: 250px;margin-left: 20px;' id='comentario' type='text' placeholder='Comentar...'></ons-input><ons-button modifier='quiet'>Enviar</ons-button>";
+
+     document.getElementById('contenido').innerHTML = '';
+  document.getElementById('contenido').innerHTML = disc;
+
 }
 
 
