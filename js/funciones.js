@@ -532,16 +532,16 @@ function nuevoForo(){
   console.log('No me piques we'); 
 
     var nf = 
-      "<ons-card style='height: 95%;'>"+
-      "<form action='upload.php' method='post' enctype='multipart/form-data'>"+
-        
-          "Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
-          "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
-        
-        "<center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' accept='image/x-png,image/gif,image/jpeg'> </label><br></center>"+
-        "<center><label><input type='submit' name='submit' style='display:none;'><ons-button modifier='large'>Enviar</ons-button> </label> </center>"+
-      "</form>"+
-      "</ons-card>";
+   " <ons-card style='height: 95%;'>"+
+    "<form action='php/upload.php' method='post' enctype='multipart/form-data'>"+
+      
+       " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
+       " Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"
+      
+     " <center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' accept='image/x-png,image/gif,image/jpeg'> </label><br></center>"+
+     " <center><label><input type='submit' name='submit' style='display:none;'><ons-button modifier='large'>Enviar</ons-button> </label> </center>"+
+    "</form>"+
+    "</ons-card>";
 
       document.getElementById('contenido').innerHTML = '';
       document.getElementById('contenido').innerHTML = nf;
