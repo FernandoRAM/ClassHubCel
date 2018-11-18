@@ -34,6 +34,7 @@
                     fwrite($dest, $src, strlen($src));
                     
                     fclose($dest); 
+                    print_r("1");
                 }
             }
     

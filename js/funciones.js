@@ -572,7 +572,10 @@ function subImg(){
           method: 'POST',
           body: formData
       }).then(response => {
-          console.log(response);
+          alert(response.status);
+          if(response.status == 200){
+            alert("jalo");
+          }
       });
   });
 }
