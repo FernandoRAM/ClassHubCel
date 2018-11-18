@@ -532,20 +532,47 @@ function nuevoForo(){
   console.log('No me piques we'); 
 
     var nf = 
-   " <ons-card style='height: 95%;'>"+
-    "<form action='php/upload.php' method='post' enctype='multipart/form-data'>"+
+    "<form method='POST' enctype='multipart/form-data '>"+
+    "<ons-card style='height: 95%;'>"+
       
-       " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
-       " Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
+        
+         " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
+          "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
+        
+        "<center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' accept='image/x-png,image/gif,image/jpeg'> </label><br></center>"+
+        "<center><label><input type='submit' value='Upload File' name='submit' style='display:none;'><ons-button onclick='subImg()' modifier='large'>Enviar</ons-button> </label> </center>"+
       
-     " <center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' accept='image/x-png,image/gif,image/jpeg'> </label><br></center>"+
-     " <center><label><input type='submit' name='submit' style='display:none;'><ons-button modifier='large'>Enviar</ons-button> </label> </center>"+
-    "</form>"+
-    "</ons-card>";
+      "</ons-card>"+
+    "</form>";
 
       document.getElementById('contenido').innerHTML = '';
       document.getElementById('contenido').innerHTML = nf;
 	
 
 		
+}
+
+
+function subImg(){
+  const url = 'php/upload.php';
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const files = document.querySelector('[type=file]').files;
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+          let file = files[i];
+
+          formData.append('files[]', file);
+      }
+      fetch(url, {
+          method: 'POST',
+          body: formData
+      }).then(response => {
+          console.log(response);
+      });
+  });
 }
