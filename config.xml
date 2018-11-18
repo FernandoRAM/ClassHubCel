@@ -4,7 +4,7 @@
 <widget xmlns="http://www.w3.org/ns/widgets"
         xmlns:gap="http://phonegap.com/ns/1.0"
         id="com.phonegap.helloworld"
-        version="1.7.1">
+        version="1.0.0">
 
     <name>ClassHub</name>
 
@@ -69,7 +69,7 @@
     <!-- <plugin name="cordova-plugin-device-orientation" /> -->
     <!-- <plugin name="cordova-plugin-dialogs" /> -->
     <!-- <plugin name="cordova-plugin-file" /> -->
-    <plugin name="cordova-plugin-file-transfer" spec="~1.7.1" />
+    <!-- <plugin name="cordova-plugin-file-transfer" /> -->
 <!--     <plugin name="cordova-plugin-geolocation"/> -->
     <!-- <plugin name="cordova-plugin-globalization" /> -->
     <!-- <plugin name="cordova-plugin-inappbrowser" /> -->
