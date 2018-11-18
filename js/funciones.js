@@ -573,6 +573,7 @@ function subImg(){
       oReq.onload = function (){
         if (oReq.status == 200) {
          alert("jalo");
+         alert(oReq.responseText);
         } else {
          alert("no jalo");
         }

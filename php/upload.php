@@ -21,10 +21,12 @@
     
                 if (!in_array($file_ext, $extensions)) {
                     $errors[] = 'Extension not allowed: ' . $file_name . ' ' . $file_type;
+                    echo('extension');
                 }
     
                 if ($file_size > 2097152) {
                     $errors[] = 'File size exceeds limit: ' . $file_name . ' ' . $file_type;
+                    echo('tamaño');
                 }
     
                 if (empty($errors)) {
@@ -34,11 +36,12 @@
                     fwrite($dest, $src, strlen($src));
                     
                     fclose($dest); 
-                    print_r("1");
+                    echo("1");
                 }
             }
     
-            if ($errors) print_r($errors);
+            if ($errors) echo($errors);
+
         }
     }
     // $file =($_POST["fileToUpload"]["name"]);
