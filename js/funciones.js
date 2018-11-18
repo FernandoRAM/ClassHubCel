@@ -568,14 +568,24 @@ function subImg(){
 
           formData.append('files[]', file);
       }
-      fetch(url, {
-          method: 'POST',
-          body: formData
-      }).then(response => {
-          alert(response.status);
-          if(response.status == 200){
-            alert("jalo");
-          }
-      });
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "php/upload.php", true);
+      oReq.onload = function (){
+        if (oReq.status == 200) {
+         alert("jalo");
+        } else {
+         alert("no jalo");
+        }
+      };
+      oReq.send(formData);
+      // fetch(url, {
+      //     method: 'POST',
+      //     body: formData
+      // }).then(response => {
+      //     alert(response.status);
+      //     if(response.status == 200){
+      //       alert("jalo");
+      //     }
+      // });
   });
 }
