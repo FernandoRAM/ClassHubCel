@@ -553,11 +553,17 @@ function nuevoForo(){
 }
 var camearaOptions = {
   quality: 100,
-  destinationType: navigator.camera.DestinationType.FILE_URI,
+  destinationType: navigator.camera.DestinationType.DATA_URL,
   sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
 }
 function getImage() {
-  navigator.camera.getPicture(uploadPhoto,onError, camearaOptions);
+  navigator.camera.getPicture(uploadPhoto, function(message) {
+    alert('get picture failed');
+    }, {
+    quality: 100,
+    destinationType: navigator.camera.DestinationType.FILE_URI,
+    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+    });
 }
 
 function onError(err){ alert(error); }
