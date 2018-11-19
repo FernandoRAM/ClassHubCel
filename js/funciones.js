@@ -14,7 +14,7 @@ function login() {
 
                 if (respuesta != '0') {
 
-
+                    localStorage.setItem('idUsuario', respuesta);
                     window.location.assign('inicio.html');
 
                 } else {
@@ -170,6 +170,43 @@ function pre_hash(str) {
 
     return FINAL_HASH;
 }
+
+
+function upForo() {
+
+  var titulo = document.getElementById('tituloForo').value;
+  var desc = document.getElementById('descripcion').value;
+  var idU = localStorage.getItem('idUsuario');
+
+  if (titulo != '' && desc != '') {
+
+      loginAjax = new XMLHttpRequest();
+      loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc+'&idU='+idU);
+      loginAjax.send();
+      loginAjax.onreadystatechange = function () {
+          if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+
+              var respuesta = loginAjax.responseText;
+              console.log(respuesta);
+
+              if (respuesta == '1') {
+
+                  alert('Discusión publicada exitosamente!');
+
+              } else {
+                  titulo = '';
+                  desc = '';
+                  alert('Error Inesperado Intenta más tarde.')
+              }
+          } else {
+          }
+      }
+  } else {
+      alert('Por favor completa todos los campos.')
+  }
+
+}
+
 
 
 var showToast = function () {
@@ -555,41 +592,6 @@ function nuevoForo() {
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
-
-function upForo() {
-
-    var titulo = document.getElementById('tituloForo').value;
-    var desc = document.getElementById('descripcion').value;
-
-    if (titulo != '' && desc != '') {
-
-        loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'http://localhost:9999/ClassHub/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc);
-        loginAjax.send();
-        loginAjax.onreadystatechange = function () {
-            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
-
-                var respuesta = loginAjax.responseText;
-                console.log(respuesta);
-
-                if (respuesta == '1') {
-
-                    alert('Discusión publicada exitosamente!');
-
-                } else {
-                    titulo = '';
-                    desc = '';
-                    alert('Error Inesperado Intenta más tarde.')
-                }
-            } else {
-            }
-        }
-    } else {
-        alert('Por favor completa todos los campos.')
-    }
-
-}
 
 
 function subImg() {
