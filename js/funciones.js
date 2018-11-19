@@ -551,42 +551,74 @@ function nuevoForo(){
 
 		
 }
-
-
-function subImg(){
-  const url = 'http://classhub.epizy.com/ClassHub/php/upload.php';
-  const form = document.querySelector('form');
-
-  form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      const files = document.querySelector('[type=file]').files;
-      const formData = new FormData();
-
-      for (let i = 0; i < files.length; i++) {
-          let file = files[i];
-
-          formData.append('files[]', file);
-      }
-      var oReq = new XMLHttpRequest();
-      oReq.open("POST", "php/upload.php", true);
-      oReq.onload = function (){
-        if (oReq.status == 200) {
-         alert("jalo");
-         alert(oReq.responseText);
-        } else {
-         alert("no jalo");
-        }
-      };
-      oReq.send(formData);
-      // fetch(url, {
-      //     method: 'POST',
-      //     body: formData
-      // }).then(response => {
-      //     alert(response.status);
-      //     if(response.status == 200){
-      //       alert("jalo");
-      //     }
-      // });
-  });
+var camearaOptions = {
+  quality: 100,
+  destinationType: navigator.camera.DestinationType.FILE_URI,
+  sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
 }
+function getImage() {
+  navigator.camera.getPicture(uploadPhoto,onError, camearaOptions);
+}
+
+function onError(err){ alert(error); }
+
+function uploadPhoto(imageURI) {
+  var options = new FileUploadOptions();
+  options.fileKey = "file";
+  options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
+  options.mimeType = "image/jpeg";
+
+  var params = new Object();
+  params.value1 = "test";
+  params.value2 = "param";
+  
+  options.params = params;
+  options.chunkedMode = false;
+
+  var ft = new FileTransfer();
+  ft.upload(imageURI, "http://classhub.epizy.com/ClassHub/php/upload.php",
+  function (result) {
+      console.log(JSON.stringify(result));
+  },
+  function (error) {
+      console.log(JSON.stringify(error));
+  }, options);
+}
+
+// function subImg(){
+//   const url = 'http://classhub.epizy.com/ClassHub/php/upload.php';
+//   const form = document.querySelector('form');
+
+//   form.addEventListener('submit', e => {
+//       e.preventDefault();
+
+//       const files = document.querySelector('[type=file]').files;
+//       const formData = new FormData();
+
+//       for (let i = 0; i < files.length; i++) {
+//           let file = files[i];
+
+//           formData.append('files[]', file);
+//       }
+//       var oReq = new XMLHttpRequest();
+//       oReq.open("POST", "php/upload.php", true);
+//       oReq.onload = function (){
+//         if (oReq.status == 200) {
+//          alert("jalo");
+//          alert(oReq.responseText);
+//         } else {
+//          alert("no jalo");
+//         }
+//       };
+//       oReq.send(formData);
+//       // fetch(url, {
+//       //     method: 'POST',
+//       //     body: formData
+//       // }).then(response => {
+//       //     alert(response.status);
+//       //     if(response.status == 200){
+//       //       alert("jalo");
+//       //     }
+//       // });
+//   });
+// }
