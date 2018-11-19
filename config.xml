@@ -24,6 +24,7 @@
     <preference name="permissions" value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
+    <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="orientation"
                 value="portrait"/>        <!-- all: default means both landscape and portrait are enabled -->
     <preference name="target-device"
@@ -68,8 +69,8 @@
     <!-- <plugin name="cordova-plugin-device-motion" /> -->
     <!-- <plugin name="cordova-plugin-device-orientation" /> -->
     <!-- <plugin name="cordova-plugin-dialogs" /> -->
-    <!-- <plugin name="cordova-plugin-file" /> -->
-    <!-- <plugin name="cordova-plugin-file-transfer" /> -->
+    <plugin name="cordova-plugin-file" />
+    <plugin name="cordova-plugin-file-transfer" />
 <!--     <plugin name="cordova-plugin-geolocation"/> -->
     <!-- <plugin name="cordova-plugin-globalization" /> -->
     <!-- <plugin name="cordova-plugin-inappbrowser" /> -->
