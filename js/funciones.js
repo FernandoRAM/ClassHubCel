@@ -551,80 +551,122 @@ function nuevoForo(){
 
 		
 }
-var camearaOptions = {
-  quality: 100,
-  destinationType: navigator.camera.DestinationType.DATA_URL,
-  sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
+
+
+function subImg(){
+  const url = 'php/upload.php';
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const files = document.querySelector('[type=file]').files;
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+          let file = files[i];
+
+          formData.append('files[]', file);
+      }
+      var oReq = new XMLHttpRequest();
+      oReq.open("POST", "php/upload.php", true);
+      oReq.onload = function (){
+        if (oReq.status == 200) {
+         alert("jalo");
+         alert(oReq.responseText);
+        } else {
+         alert("no jalo");
+        }
+      };
+      oReq.send(formData);
+      // fetch(url, {
+      //     method: 'POST',
+      //     body: formData
+      // }).then(response => {
+      //     alert(response.status);
+      //     if(response.status == 200){
+      //       alert("jalo");
+      //     }
+      // });
+  });
 }
-function getImage() {
-  navigator.camera.getPicture(uploadPhoto, function(message) {
-    alert('get picture failed');
-    }, {
-    quality: 100,
-    destinationType: navigator.camera.DestinationType.FILE_URI,
-    sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
-    });
-}
 
-function onError(err){ alert(error); }
 
-function uploadPhoto(imageURI) {
-  var options = new FileUploadOptions();
-  options.fileKey = "file";
-  options.fileName = imageURI.substr(imageURI.lastIndexOf('/') + 1);
-  options.mimeType = "image/jpeg";
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
 
-  var params = new Object();
-  params.value1 = "test";
-  params.value2 = "param";
-  
-  options.params = params;
-  options.chunkedMode = false;
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
 
-  var ft = new FileTransfer();
-  ft.upload(imageURI, "http://classhub.epizy.com/ClassHub/php/upload.php",
-  function (result) {
-      console.log(JSON.stringify(result));
-  },
-  function (error) {
-      console.log(JSON.stringify(error));
-  }, options);
-}
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        pictureSource = navigator.camera.PictureSourceType;
+        destinationType = navigator.camera.DestinationType;
+    }
 
-// function subImg(){
-//   const url = 'http://classhub.epizy.com/ClassHub/php/upload.php';
-//   const form = document.querySelector('form');
 
-//   form.addEventListener('submit', e => {
-//       e.preventDefault();
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
 
-//       const files = document.querySelector('[type=file]').files;
-//       const formData = new FormData();
+        // Show the selected image
+        var smallImage = document.getElementById('smallImage');
+        smallImage.style.display = 'block';
+        smallImage.src = imageURI;
+    }
 
-//       for (let i = 0; i < files.length; i++) {
-//           let file = files[i];
 
-//           formData.append('files[]', file);
-//       }
-//       var oReq = new XMLHttpRequest();
-//       oReq.open("POST", "php/upload.php", true);
-//       oReq.onload = function (){
-//         if (oReq.status == 200) {
-//          alert("jalo");
-//          alert(oReq.responseText);
-//         } else {
-//          alert("no jalo");
-//         }
-//       };
-//       oReq.send(formData);
-//       // fetch(url, {
-//       //     method: 'POST',
-//       //     body: formData
-//       // }).then(response => {
-//       //     alert(response.status);
-//       //     if(response.status == 200){
-//       //       alert("jalo");
-//       //     }
-//       // });
-//   });
-// }
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
+
+    function uploadPhoto() {
+
+        //selected photo URI is in the src attribute (we set this on getPhoto)
+        var imageURI = document.getElementById('smallImage').getAttribute("src");
+        if (!imageURI) {
+            alert('Please select an image first.');
+            return;
+        }
+
+        //set upload options
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType = "image/jpeg";
+
+        options.params = {
+            firstname: document.getElementById("firstname").value,
+            lastname: document.getElementById("lastname").value,
+            workplace: document.getElementById("workplace").value
+        }
+
+        var ft = new FileTransfer();
+        ft.upload(imageURI, encodeURI("http://classhub.epizy.com/ClassHub/php/upload.php"), win, fail, options);
+    }
+
+    // Called if something bad happens.
+    //
+    function onFail(message) {
+      console.log('Failed because: ' + message);
+    }
+
+    function win(r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        //alert("Response =" + r.response);
+        console.log("Sent = " + r.bytesSent);
+    }
+
+    function fail(error) {
+        alert("An error has occurred: Code = " + error.code);
+        console.log("upload error source " + error.source);
+        console.log("upload error target " + error.target);
+    }
