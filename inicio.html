@@ -1,204 +1,200 @@
 <!DOCTYPE html>
 <html onload="test()">
 <head>
-	<title>Inicio</title>
-	<meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
- <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="css/estilos.css">
-	<link rel="stylesheet" type="text/css" href="css/estilosTabla.css">
-	<link rel="stylesheet" type="text/css" href="css/onsenui.css">
- 	 <link rel="stylesheet" type="text/css" href="css/old-onsen-css-components.min.css">
-  <script src="js/onsenui.min.js"></script>
-  <script src="js/funciones.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <title>Inicio</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="css/estilosTabla.css">
+    <link rel="stylesheet" type="text/css" href="css/onsenui.css">
+    <link rel="stylesheet" type="text/css" href="css/old-onsen-css-components.min.css">
+    <script src="js/onsenui.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
 
 <div class="toolbar toolbar--material">
-	<div class="toolbar__left toolbar--material__left">
-	</div>
+    <div class="toolbar__left toolbar--material__left">
+    </div>
     <div class="toolbar__left toolbar__center" style="color:white; font-size: 25px;">ClassHub</div>
-	 
-	  <div class="toolbar__right toolbar--material__right">
+
+    <div class="toolbar__right toolbar--material__right">
 		<span class="toolbar-button toolbar-button--material_right">
-	     	<i class="zmdi zmdi-power zmdi-hc-lg "style="color:white;"></i>
+	     	<i class="zmdi zmdi-power zmdi-hc-lg " style="color:white;"></i>
 	    </span>
-  </div>
-</div>
-	
-<div id="contenido" class="contenido" >
-
-  <!-- Carrusel -->
-  <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
-
-    <!-- Item Carrusel (Transporte)-->
-    <ons-carousel-item>
-      <ons-card style="height: 95%; margin-top: 15px;">
-        <center><h4>Horarios de Transporte</h4></center>
-        <!-- Item tarjeta -->
-        <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
-          <center>Juriquilla - CU</center>
-            <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
-        </ons-card>
-        <!-- Item tarjeta -->
-        <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
-
-          <center>
-            CU - Juriquilla
-          </center>
-            <!-- Horarios -->
-            <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
-        </ons-card>
-      </ons-card>
-    </ons-carousel-item>
-
-    <!-- Item Carrusel (Clases) -->
-    <ons-carousel-item>
-      <ons-card style="height: 95%; margin-top: 15px; overflow-y: scroll;">
-        <!-- Item tarjeta -->
-        <center><h4>Horarios de Clases</h4>
-            <ons-search-input placeholder="Busca tu clase..."></ons-search-input><br><br>
-
-            <div id="clasesBuscadas">
-
-                            <!-- Item de clase con su Horario -->
-              <ons-card class="clase">
-
-                <p id="nombreClase">Dispositivos lógicos</p>
-                <p id="nombreProf">Profesor: Fausto Abraham Jacques García </p>
-                <p id="numeroGrupo">Grupo: 70</p>
-
-                <table class="tg">
-                  <tr>
-                    <th class="tg-0lax"></th>
-                    <th class="tg-0lax">Lunes</th>
-                    <th class="tg-0lax">Martes</th>
-                    <th class="tg-0lax">Miércoles</th>
-                    <th class="tg-0lax">Jueves</th>
-                    <th class="tg-0lax">Viernes</th>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">7:00 - 9:00</td>
-                    <td class="tg-0lax" id="L1"></td>
-                    <td class="tg-0lax" id="M1"></td>
-                    <td class="tg-0lax" id="Mi1"></td>
-                    <td class="tg-0lax" id="J1"></td>
-                    <td class="tg-0lax" id="V1"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">9:00 - 11:00</td>
-                    <td class="tg-0lax" id="L2"></td>
-                    <td class="tg-0lax" id="M2"></td>
-                    <td class="tg-0lax" id="Mi2"></td>
-                    <td class="tg-0lax" id="J2"></td>
-                    <td class="tg-0lax" id="V2"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">11:00 - 13:00</td>
-                    <td class="tg-0lax" id="L3"></td>
-                    <td class="tg-0lax" id="M3"></td>
-                    <td class="tg-0lax" id="Mi3"></td>
-                    <td class="tg-0lax" id="J3"></td>
-                    <td class="tg-0lax" id="V3"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">13:00 - 15:00</td>
-                    <td class="tg-0lax" id="L4"></td>
-                    <td class="tg-0lax" id="M4"></td>
-                    <td class="tg-0lax" id="Mi4"></td>
-                    <td class="tg-0lax" id="J4"></td>
-                    <td class="tg-0lax" id="V4"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">15:00 - 17:00</td>
-                    <td class="tg-0lax" id="L5"></td>
-                    <td class="tg-0lax" id="M5"></td>
-                    <td class="tg-0lax" id="Mi5"></td>
-                    <td class="tg-0lax" id="J5"></td>
-                    <td class="tg-0lax" id="V5"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">17:00 - 19:00</td>
-                    <td class="tg-0lax" id="L6"></td>
-                    <td class="tg-0lax" id="M6"></td>
-                    <td class="tg-0lax" id="Mi6"></td>
-                    <td class="tg-0lax" id="J6"></td>
-                    <td class="tg-0lax" id="V6"></td>
-                  </tr>
-                </table>
-
-              </ons-card>
-            </div>
-        </center>
-      </ons-card>
-    </ons-carousel-item>
-
-     <!-- Item Carrusel (Tutores) -->
-  <ons-carousel-item>
-      <ons-card style="height: 95%; margin-top: 15px; overflow-y:scroll;">
-        <center><h4>Tutores</h4></center><br><br>
-          <ons-card onclick='verTutor()'>
-            <span>Eduardo Aguirre Caracheo<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> 
-          </ons-card>
-
-          <ons-card>
-            <span>Diego Ibarra Corona<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> 
-          </ons-card>
-
-          <ons-card>
-            <span>Alejandro Vargas Díaz<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> 
-          </ons-card> 
-
-        </ons-card>
-      </ons-card>
-    </ons-carousel-item>
-  </ons-carousel>
-
+    </div>
 </div>
 
+<div id="contenido" class="contenido">
+
+    <!-- Carrusel -->
+    <ons-carousel fullscreen swipeable auto-scroll overscrollable id="carousel">
+
+        <!-- Item Carrusel (Transporte)-->
+        <ons-carousel-item>
+            <ons-card style="height: 95%; margin-top: 15px;">
+                <center><h4>Horarios de Transporte</h4></center>
+                <!-- Item tarjeta -->
+                <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
+                    <center>Juriquilla - CU</center>
+                    <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
+                </ons-card>
+                <!-- Item tarjeta -->
+                <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
+
+                    <center>
+                        CU - Juriquilla
+                    </center>
+                    <!-- Horarios -->
+                    <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
+                </ons-card>
+            </ons-card>
+        </ons-carousel-item>
+
+        <!-- Item Carrusel (Clases) -->
+        <ons-carousel-item>
+            <ons-card style="height: 95%; margin-top: 15px; overflow-y: scroll;">
+                <!-- Item tarjeta -->
+                <center><h4>Horarios de Clases</h4>
+                    <ons-search-input placeholder="Busca tu clase..."></ons-search-input>
+                    <br><br>
+
+                    <div id="clasesBuscadas">
+
+                        <!-- Item de clase con su Horario -->
+                        <ons-card class="clase">
+
+                            <p id="nombreClase">Dispositivos lógicos</p>
+                            <p id="nombreProf">Profesor: Fausto Abraham Jacques García </p>
+                            <p id="numeroGrupo">Grupo: 70</p>
+
+                            <table class="tg">
+                                <tr>
+                                    <th class="tg-0lax"></th>
+                                    <th class="tg-0lax">Lunes</th>
+                                    <th class="tg-0lax">Martes</th>
+                                    <th class="tg-0lax">Miércoles</th>
+                                    <th class="tg-0lax">Jueves</th>
+                                    <th class="tg-0lax">Viernes</th>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">7:00 - 9:00</td>
+                                    <td class="tg-0lax" id="L1"></td>
+                                    <td class="tg-0lax" id="M1"></td>
+                                    <td class="tg-0lax" id="Mi1"></td>
+                                    <td class="tg-0lax" id="J1"></td>
+                                    <td class="tg-0lax" id="V1"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">9:00 - 11:00</td>
+                                    <td class="tg-0lax" id="L2"></td>
+                                    <td class="tg-0lax" id="M2"></td>
+                                    <td class="tg-0lax" id="Mi2"></td>
+                                    <td class="tg-0lax" id="J2"></td>
+                                    <td class="tg-0lax" id="V2"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">11:00 - 13:00</td>
+                                    <td class="tg-0lax" id="L3"></td>
+                                    <td class="tg-0lax" id="M3"></td>
+                                    <td class="tg-0lax" id="Mi3"></td>
+                                    <td class="tg-0lax" id="J3"></td>
+                                    <td class="tg-0lax" id="V3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">13:00 - 15:00</td>
+                                    <td class="tg-0lax" id="L4"></td>
+                                    <td class="tg-0lax" id="M4"></td>
+                                    <td class="tg-0lax" id="Mi4"></td>
+                                    <td class="tg-0lax" id="J4"></td>
+                                    <td class="tg-0lax" id="V4"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">15:00 - 17:00</td>
+                                    <td class="tg-0lax" id="L5"></td>
+                                    <td class="tg-0lax" id="M5"></td>
+                                    <td class="tg-0lax" id="Mi5"></td>
+                                    <td class="tg-0lax" id="J5"></td>
+                                    <td class="tg-0lax" id="V5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">17:00 - 19:00</td>
+                                    <td class="tg-0lax" id="L6"></td>
+                                    <td class="tg-0lax" id="M6"></td>
+                                    <td class="tg-0lax" id="Mi6"></td>
+                                    <td class="tg-0lax" id="J6"></td>
+                                    <td class="tg-0lax" id="V6"></td>
+                                </tr>
+                            </table>
+
+                        </ons-card>
+                    </div>
+                </center>
+            </ons-card>
+        </ons-carousel-item>
+
+        <!-- Item Carrusel (Tutores) -->
+        <ons-carousel-item>
+            <ons-card style="height: 95%; margin-top: 15px; overflow-y:scroll;">
+                <center><h4>Tutores</h4></center>
+                <br><br>
+                <ons-card onclick='verTutor()'>
+                    <span>Eduardo Aguirre Caracheo<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
+                                                     style='float:right;'></i></span>
+                </ons-card>
+
+                <ons-card>
+                    <span>Diego Ibarra Corona<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
+                                                style='float:right;'></i></span>
+                </ons-card>
+
+                <ons-card>
+                    <span>Alejandro Vargas Díaz<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
+                                                  style='float:right;'></i></span>
+                </ons-card>
+
+            </ons-card>
+            </ons-card>
+        </ons-carousel-item>
+    </ons-carousel>
+
+</div>
 
 
 <div class="tabbar">
-  <label class="tabbar__item" onclick="calendario()">
-    <input type="radio" name="tabbar-b" checked="checked">
-    <button class="tabbar__button">
-      <i class="zmdi zmdi-calendar zmdi-hc-lg"></i>
-    </button>
-  </label>
+    <label class="tabbar__item" onclick="calendario()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-calendar zmdi-hc-lg"></i>
+        </button>
+    </label>
 
-  <label class="tabbar__item" onclick="foro()">
-    <input type="radio" name="tabbar-b" checked="checked">
-    <button class="tabbar__button">
-      <i class="zmdi zmdi-comments zmdi-hc-lg"></i>
-    </button>
-  </label>
+    <label class="tabbar__item" onclick="foro()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-comments zmdi-hc-lg"></i>
+        </button>
+    </label>
 
-  <label class="tabbar__item" onclick="horarios()">
-    <input type="radio" name="tabbar-b" checked="checked">
-    <button class="tabbar__button">
-      <i class="zmdi zmdi-time zmdi-hc-lg"></i>
-    </button>
-  </label>
+    <label class="tabbar__item" onclick="horarios()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-time zmdi-hc-lg"></i>
+        </button>
+    </label>
 
-  <label class="tabbar__item" onclick="convocatorias()">
-    <input type="radio" name="tabbar-b">
-    <button class="tabbar__button">
-      <i class="zmdi zmdi-money zmdi-hc-lg"></i>
-    </button>
-  </label>
-
-  <label class="tabbar__item">
-    <input type="radio" name="tabbar-b">
-    <button class="tabbar__button">
-    	<i class="zmdi zmdi-alert-circle zmdi-hc-lg"></i>
-    </button>
-  </label>
+    <label class="tabbar__item" onclick="convocatorias()">
+        <input type="radio" name="tabbar-b">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-money zmdi-hc-lg"></i>
+        </button>
+    </label>
 
 </div>
-
-
 
 
 </body>
