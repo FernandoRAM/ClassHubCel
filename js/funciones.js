@@ -554,7 +554,7 @@ function nuevoForo(){
 
 
 function subImg(){
-  const url = 'php/upload.php';
+  const url = 'http://classhub.epizy.com/ClassHub/php/upload.php';
   const form = document.querySelector('form');
 
   form.addEventListener('submit', e => {
