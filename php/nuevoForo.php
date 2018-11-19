@@ -14,7 +14,7 @@ $ins = "INSERT INTO foro (Titulo, Descripcion, idUsuario) VALUES ('$titulo', '$d
 if ($conexion->query($ins) === TRUE) {
     echo "1";
 } else {
-    echo "0";
+    echo($ins);
 }
 
 

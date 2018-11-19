@@ -177,38 +177,44 @@ function upForo() {
   var titulo = document.getElementById('tituloForo').value;
   var desc = document.getElementById('descripcion').value;
   var idU = localStorage.getItem('idUsuario');
-
+  
   if (titulo != '' && desc != '') {
 
       loginAjax = new XMLHttpRequest();
-      loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc+'&idU='+idU);
+      loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo='+titulo+'&desc='+desc+'&idU='+idU);
       loginAjax.send();
       loginAjax.onreadystatechange = function () {
           if (loginAjax.readyState == 4 && loginAjax.status == 200) {
 
               var respuesta = loginAjax.responseText;
-              console.log(respuesta);
+              //alert(respuesta);
 
               if (respuesta == '1') {
 
                   alert('Discusión publicada exitosamente!');
+                  window.location.assign('inicio.html');
 
               } else {
                   titulo = '';
                   desc = '';
-                  alert('Error Inesperado Intenta más tarde.')
+                  alert('Error Inesperado Intenta más tarde.');
               }
           } else {
+            //alert(loginAjax.status);
           }
       }
   } else {
-      alert('Por favor completa todos los campos.')
+      showToastCampos();
   }
 
 }
 
 
-
+var showToastCampos = function () {
+  ons.notification.toast('Completa los campos...', {
+      timeout: 2000
+  });
+};
 var showToast = function () {
     ons.notification.toast('¡Datos Incorrectos. Intenta de nuevo!', {
         timeout: 2000
@@ -576,7 +582,7 @@ function nuevoForo() {
         "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
         "<center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' > </label><br></center>" +
-        "<center><label><input type='submit' value='Upload File' name='submit' style='display:none;'><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
+        "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
 
         "</ons-card>" +
         "</form>";
