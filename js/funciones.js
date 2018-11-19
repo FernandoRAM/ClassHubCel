@@ -4,7 +4,7 @@ function login() {
 
     if (exp != '' && pass != '') {
         loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'php/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
         loginAjax.send();
         loginAjax.onreadystatechange = function () {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
