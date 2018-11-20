@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html onload="test()">
+<html>
 <head>
     <title>Inicio</title>
     <meta charset="utf-8">
@@ -27,7 +27,7 @@
     <div class="toolbar__left toolbar__center" style="color:white; font-size: 25px;">ClassHub</div>
 
     <div class="toolbar__right toolbar--material__right">
-		<span class="toolbar-button toolbar-button--material_right">
+		<span class="toolbar-button toolbar-button--material_right" onclick="logout()">
 	     	<i class="zmdi zmdi-power zmdi-hc-lg " style="color:white;"></i>
 	    </span>
     </div>
@@ -200,6 +200,10 @@
 
 </div>
 
+<script>
+	//INICIALIZAR LA VENTANA
+	window.addEventListener('load', verificaSesion, true);
+</script>
 
 </body>
 </html>

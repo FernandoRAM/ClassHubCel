@@ -1,3 +1,32 @@
+function logout(){
+    localStorage.removeItem('idUsuario'); 
+    window.location.assign('index.html');
+    
+}
+/**
+ * Función: logout()
+ * @author: Fernando Rincón
+ * 
+ * Esta funcion te redirige a la pantalla de login y elimina la variable local 'idUsuario' usada para validar 
+ * una sesión activa.
+ * 
+ */
+
+function verificaSesion(){
+    if(localStorage.getItem('idUsuario')){
+        
+    }else{
+        window.location.assign('index.html');
+    }
+}
+/**
+ * Función: verificaSesion()
+ * @author : Fernando Rincon
+ * 
+ * Esta función se ejecuta al cargar index.html y verifica que existe la variable de sesión, de no ser así se redirige
+ * al usuario a la pantalla de login.
+ */
+
 function login() {
     var exp = document.getElementById('expediente').value;
     var pass = document.getElementById('pass').value;
@@ -20,7 +49,7 @@ function login() {
                 } else {
                     exp = '';
                     passs = '';
-                    showToast();
+                    showToast('Datos incorrectos inenta de nuevo.');
                 }
 
 
@@ -32,13 +61,14 @@ function login() {
 
 }
 
-/*
-Esta funcion se encarga de obtener los datos del usuario ingresados en la pantalla de inicio de sesión . 
-Al obtenerlos se verifican las credenciales en la Base de Datos (la contraseña hasheada). 
-De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
-de que sus datos son incorrectos y debe intentarlo de nuevo.
-Autor: Fernando Rincón
-Versión: 1.0
+/** 
+* Función: login()
+* Esta funcion se encarga de obtener los datos del usuario ingresados en la pantalla de inicio de sesión . 
+* Al obtenerlos se verifican las credenciales en la Base de Datos (la contraseña hasheada). 
+* De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
+* de que sus datos son incorrectos y debe intentarlo de nuevo.
+* @author: Fernando Rincón[]
+* Versión: 1.0
 */
 
 
@@ -208,22 +238,33 @@ function upForo() {
   }
 
 }
-
+/**
+ * Función: upForo()
+ * @author: Fernando Rincón
+ * 
+ * Esta función toma los datos ingresados por el usuario en la pantalla de nuevoForo. Si los campos están completados
+ * y se hizo bien el insert en la base de datos, se regresa un alert diciendo: 'Discusión publicada exitosamente!', 
+ * de lo contrario, se muestra un toast 
+ */
 
 var showToastCampos = function () {
   ons.notification.toast('Completa los campos...', {
       timeout: 2000
   });
 };
-var showToast = function () {
-    ons.notification.toast('¡Datos Incorrectos. Intenta de nuevo!', {
-        timeout: 2000
+/**
+*Esta funcion muestra un toast con el mensaje 'Completa los campos...' en la parte
+inferior al ser ejecutada y tener campos incompletos al querer insertar algo.
+*/
+var showToast = function (msj) {
+    ons.notification.toast(msj, {
+        timeout: 1000
     });
 };
 
-/*
-Esta funcion muestra un toast con el mensaje '¡Datos Incorrectos. Intenta de nuevo!' en la parte
-inferior al ser ejecutada.
+/**
+*Esta funcion muestra un toast con el mensaje '¡Datos Incorrectos. Intenta de nuevo!' en la parte
+inferior al ser ejecutada y tener datos incorrectos en el login.
 */
 
 function convocatorias() {
