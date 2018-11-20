@@ -279,7 +279,7 @@ function reporte(){
    " <ons-card style='height: 95%;'>"+
       
         
-          "Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
+         
           "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
         
         "<center><label> <img src='img/photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;'> </label><br></center>"+
