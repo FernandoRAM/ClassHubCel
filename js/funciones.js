@@ -207,6 +207,7 @@ function pre_hash(str) {
 }
 
 
+
 function upForo() {
 
   var titulo = document.getElementById('tituloForo').value;
@@ -222,7 +223,7 @@ function upForo() {
           if (loginAjax.readyState == 4 && loginAjax.status == 200) {
 
               var respuesta = loginAjax.responseText;
-              //alert(respuesta);
+              alert(loginAjax.status);
 
               if (respuesta == '1') {
 
@@ -232,7 +233,7 @@ function upForo() {
               } else {
                   titulo = '';
                   desc = '';
-                  alert('Error Inesperado Intenta más tarde.');
+                  alert(login.responseText);
               }
           } else {
             //alert(loginAjax.status);
@@ -272,6 +273,29 @@ var showToast = function (msj) {
 inferior al ser ejecutada y tener datos incorrectos en el login.
 */
 
+function reporte(){
+    var reporte = 
+   " <form method='POST' enctype='multipart/form-data '>"+
+   " <ons-card style='height: 95%;'>"+
+      
+        
+          "Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>"+
+          "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
+        
+        "<center><label> <img src='img/photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;'> </label><br></center>"+
+       " <center><label><input type='submit' value='Upload File' name='submit' style='display:none;'><ons-button onclick='upForo()' modifier='large' style='background-color:red;'>Enviar Reporte</ons-button> </label> </center>"+
+      
+     " </ons-card>"+
+   " </form>";
+   document.getElementById('contenido').innerHTML = '';
+   document.getElementById('contenido').innerHTML = reporte;
+}
+/**
+ * Función: reporte()
+ * @author : Fernando Rincon
+ * 
+ * Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página para enviar un reporte.
+ */
 function convocatorias() {
 
     var convocatorias = "<!-- Carrusel -->" +
@@ -279,10 +303,10 @@ function convocatorias() {
 
         " <!-- Item Carrusel (Becas)-->" +
         " <ons-carousel-item>" +
-        " <ons-card style='height: 95%; margin-top: 15px;' onclick='verConvocatoria()'>" +
+        " <ons-card style='height: 95%; margin-top: 15px;'>" +
         "<center><h4>Becas</h4></center>" +
         "<!-- Item tarjeta -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
+        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria()'>" +
         "<span>Beca de manutención<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
         "</ons-card>" +
         " <!-- Item tarjeta -->" +
