@@ -1,3 +1,8 @@
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
 function logout(){
     localStorage.removeItem('idUsuario'); 
     window.location.assign('index.html');
@@ -67,7 +72,7 @@ function login() {
 * Al obtenerlos se verifican las credenciales en la Base de Datos (la contraseña hasheada). 
 * De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
 * de que sus datos son incorrectos y debe intentarlo de nuevo.
-* @author: Fernando Rincón[]
+* @author: Fernando Rincón
 * Versión: 1.0
 */
 
