@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inicio</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="css/estilosTabla.css">
+    <link rel="stylesheet" type="text/css" href="css/onsenui.css">
+    <link rel="stylesheet" type="text/css" href="css/old-onsen-css-components.min.css">
+    <script src="js/onsenui.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+<body>
+
+<div class="toolbar toolbar--material">
+    <div class="toolbar__left toolbar--material__left">
+            <span class="toolbar-button toolbar-button--material_left">
+            <i class="zmdi zmdi-alert-circle-o zmdi-hc-lg " style="color:white;"></i>
+            </span>
+
+    </div>
+    <div class="toolbar__left toolbar__center" style="color:white; font-size: 25px;">ClassHub</div>
+
+    <div class="toolbar__right toolbar--material__right">
+		<span class="toolbar-button toolbar-button--material_right" onclick="logout()">
+	     	<i class="zmdi zmdi-power zmdi-hc-lg " style="color:white;"></i>
+	    </span>
+    </div>
+</div>
+
+<div id="contenido" class="contenido">
+    <form method="POST" enctype="multipart/form-data ">
+        <ons-card style="height: 95%;">
+          
+            
+              Título: <ons-input id="tituloForo" modifier="underbar" placeholder="" float></ons-input><br><br>
+              Descripción: <br> <br> <textarea style="font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;" name="descripcion" id="descripcion" cols="30" rows="10"></textarea> <br>
+            
+            <center><label> <img src="img/photo.png" style="max-width: 100px; max-height: 100px;"><input type="file" name="fileToUpload" id="fileToUpload" style="display: none;"> </label><br></center>
+            <center><label><input type="submit" value="Upload File" name="submit" style="display:none;"><ons-button onclick="upForo()" modifier='large' style="background-color:red;">Enviar Reporte</ons-button> </label> </center>
+          
+          </ons-card>
+        </form>
+</div>
+
+<div class="tabbar">
+    <label class="tabbar__item" onclick="calendario()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-calendar zmdi-hc-lg"></i>
+        </button>
+    </label>
+
+    <label class="tabbar__item" onclick="foro()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-comments zmdi-hc-lg"></i>
+        </button>
+    </label>
+
+    <label class="tabbar__item" onclick="horarios()">
+        <input type="radio" name="tabbar-b" checked="checked">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-time zmdi-hc-lg"></i>
+        </button>
+    </label>
+
+    <label class="tabbar__item" onclick="convocatorias()">
+        <input type="radio" name="tabbar-b">
+        <button class="tabbar__button">
+            <i class="zmdi zmdi-money zmdi-hc-lg"></i>
+        </button>
+    </label>
+
+</div>
+
+<script>
+	// Funcion verificaSesion() al inicializar la ventana
+	window.addEventListener('load', verificaSesion, true);
+</script>
+
+
+</body>
+</html>

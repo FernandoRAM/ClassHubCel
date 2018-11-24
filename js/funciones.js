@@ -1,10 +1,44 @@
+history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
+function logout(){
+    localStorage.removeItem('idUsuario'); 
+    window.location.assign('index.html');
+    
+}
+/**
+ * Función: logout()
+ * @author: Fernando Rincón
+ * 
+ * Esta funcion te redirige a la pantalla de login y elimina la variable local 'idUsuario' usada para validar 
+ * una sesión activa.
+ * 
+ */
+
+function verificaSesion(){
+    if(localStorage.getItem('idUsuario')){
+        
+    }else{
+        window.location.assign('index.html');
+    }
+}
+/**
+ * Función: verificaSesion()
+ * @author : Fernando Rincon
+ * 
+ * Esta función se ejecuta al cargar index.html y verifica que existe la variable de sesión, de no ser así se redirige
+ * al usuario a la pantalla de login.
+ */
+
 function login() {
     var exp = document.getElementById('expediente').value;
     var pass = document.getElementById('pass').value;
 
     if (exp != '' && pass != '') {
         loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'php/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
         loginAjax.send();
         loginAjax.onreadystatechange = function () {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
@@ -14,13 +48,13 @@ function login() {
 
                 if (respuesta != '0') {
 
-
+                    localStorage.setItem('idUsuario', respuesta);
                     window.location.assign('inicio.html');
 
                 } else {
                     exp = '';
                     passs = '';
-                    showToast();
+                    showToast('Datos incorrectos inenta de nuevo.');
                 }
 
 
@@ -32,13 +66,14 @@ function login() {
 
 }
 
-/*
-Esta funcion se encarga de obtener los datos del usuario ingresados en la pantalla de inicio de sesión . 
-Al obtenerlos se verifican las credenciales en la Base de Datos (la contraseña hasheada). 
-De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
-de que sus datos son incorrectos y debe intentarlo de nuevo.
-Autor: Fernando Rincón
-Versión: 1.0
+/** 
+* Función: login()
+* Esta funcion se encarga de obtener los datos del usuario ingresados en la pantalla de inicio de sesión . 
+* Al obtenerlos se verifican las credenciales en la Base de Datos (la contraseña hasheada). 
+* De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
+* de que sus datos son incorrectos y debe intentarlo de nuevo.
+* @author: Fernando Rincón
+* Versión: 1.0
 */
 
 
@@ -172,17 +207,95 @@ function pre_hash(str) {
 }
 
 
-var showToast = function () {
-    ons.notification.toast('¡Datos Incorrectos. Intenta de nuevo!', {
-        timeout: 2000
+
+function upForo() {
+
+  var titulo = document.getElementById('tituloForo').value;
+  var desc = document.getElementById('descripcion').value;
+  var idU = localStorage.getItem('idUsuario');
+  
+  if (titulo != '' && desc != '') {
+
+      loginAjax = new XMLHttpRequest();
+      loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo='+titulo+'&desc='+desc+'&idU='+idU);
+      loginAjax.send();
+      loginAjax.onreadystatechange = function () {
+          if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+
+              var respuesta = loginAjax.responseText;
+              alert(loginAjax.status);
+
+              if (respuesta == '1') {
+
+                  alert('Discusión publicada exitosamente!');
+                  window.location.assign('inicio.html');
+
+              } else {
+                  titulo = '';
+                  desc = '';
+                  alert(login.responseText);
+              }
+          } else {
+            //alert(loginAjax.status);
+          }
+      }
+  } else {
+      showToastCampos();
+  }
+
+}
+/**
+ * Función: upForo()
+ * @author: Fernando Rincón
+ * 
+ * Esta función toma los datos ingresados por el usuario en la pantalla de nuevoForo. Si los campos están completados
+ * y se hizo bien el insert en la base de datos, se regresa un alert diciendo: 'Discusión publicada exitosamente!', 
+ * de lo contrario, se muestra un toast 
+ */
+
+var showToastCampos = function () {
+  ons.notification.toast('Completa los campos...', {
+      timeout: 2000
+  });
+};
+/**
+*Esta funcion muestra un toast con el mensaje 'Completa los campos...' en la parte
+inferior al ser ejecutada y tener campos incompletos al querer insertar algo.
+*/
+var showToast = function (msj) {
+    ons.notification.toast(msj, {
+        timeout: 1000
     });
 };
 
-/*
-Esta funcion muestra un toast con el mensaje '¡Datos Incorrectos. Intenta de nuevo!' en la parte
-inferior al ser ejecutada.
+/**
+*Esta funcion muestra un toast con el mensaje '¡Datos Incorrectos. Intenta de nuevo!' en la parte
+inferior al ser ejecutada y tener datos incorrectos en el login.
 */
 
+function reporte(){
+    var reporte = 
+   " <form method='POST' enctype='multipart/form-data '>"+
+   " <ons-card style='height: 95%;'>"+
+      
+        
+         
+          "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
+        
+        "<center><label> <img src='img/photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;'> </label><br></center>"+
+       " <center><label><input type='submit' value='Upload File' name='submit' style='display:none;'><ons-button onclick='upForo()' modifier='large' style='background-color:red;'>Enviar Reporte</ons-button> </label> </center>"+
+      
+     " </ons-card>"+
+   " </form>";
+   document.getElementById('contenido').innerHTML = '';
+   document.getElementById('contenido').innerHTML = reporte;
+}
+/**
+ * Función: reporte()
+ * @author : Fernando Rincon
+ * 
+ * Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página para enviar un reporte.
+ */
 function convocatorias() {
 
     var convocatorias = "<!-- Carrusel -->" +
@@ -190,10 +303,10 @@ function convocatorias() {
 
         " <!-- Item Carrusel (Becas)-->" +
         " <ons-carousel-item>" +
-        " <ons-card style='height: 95%; margin-top: 15px;' onclick='verConvocatoria()'>" +
+        " <ons-card style='height: 95%; margin-top: 15px;'>" +
         "<center><h4>Becas</h4></center>" +
         "<!-- Item tarjeta -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
+        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria()'>" +
         "<span>Beca de manutención<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
         "</ons-card>" +
         " <!-- Item tarjeta -->" +
@@ -539,7 +652,7 @@ function nuevoForo() {
         "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
         "<center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' > </label><br></center>" +
-        "<center><label><input type='submit' value='Upload File' name='submit' style='display:none;'><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
+        "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
 
         "</ons-card>" +
         "</form>";
@@ -555,41 +668,6 @@ function nuevoForo() {
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
-
-function upForo() {
-
-    var titulo = document.getElementById('tituloForo').value;
-    var desc = document.getElementById('descripcion').value;
-
-    if (titulo != '' && desc != '') {
-
-        loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'http://localhost:9999/ClassHub/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc);
-        loginAjax.send();
-        loginAjax.onreadystatechange = function () {
-            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
-
-                var respuesta = loginAjax.responseText;
-                console.log(respuesta);
-
-                if (respuesta == '1') {
-
-                    alert('Discusión publicada exitosamente!');
-
-                } else {
-                    titulo = '';
-                    desc = '';
-                    alert('Error Inesperado Intenta más tarde.')
-                }
-            } else {
-            }
-        }
-    } else {
-        alert('Por favor completa todos los campos.')
-    }
-
-}
 
 
 function subImg() {

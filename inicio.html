@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html onload="test()">
+<html>
 <head>
     <title>Inicio</title>
     <meta charset="utf-8">
@@ -19,11 +19,15 @@
 
 <div class="toolbar toolbar--material">
     <div class="toolbar__left toolbar--material__left">
+            <span class="toolbar-button toolbar-button--material_left"onclick="reporte()">
+            <i class="zmdi zmdi-alert-circle-o zmdi-hc-lg " style="color:white;"></i>
+            </span>
+
     </div>
     <div class="toolbar__left toolbar__center" style="color:white; font-size: 25px;">ClassHub</div>
 
     <div class="toolbar__right toolbar--material__right">
-		<span class="toolbar-button toolbar-button--material_right">
+		<span class="toolbar-button toolbar-button--material_right" onclick="logout()">
 	     	<i class="zmdi zmdi-power zmdi-hc-lg " style="color:white;"></i>
 	    </span>
     </div>
@@ -195,6 +199,11 @@
     </label>
 
 </div>
+
+<script>
+	// Funcion verificaSesion() al inicializar la ventana
+	window.addEventListener('load', verificaSesion, true);
+</script>
 
 
 </body>
