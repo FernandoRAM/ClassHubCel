@@ -517,49 +517,40 @@ function calendario() {
     var cal =
 
         "<center><h3>Calendario de actividades</h3></center>" +
-
-        " <ons-card onclick='verEvento()'>" +
-        " <center>" +
-        " <b>Invasión Troyana</b>" +
-        " <br><b>24 de Noviembre</b>" +
-        "</center>" +
-        "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor...</p>" +
-        " </ons-card>" +
-
-        " <ons-card onclick='window.location.href = 'calendario.html?id_event='' >" +
-        " <center>" +
-        " <b>Carritos Troyanos</b>" +
-        " <br><b>27 de Noviembre</b>" +
-        " </center>" +
-        " <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor...</p>" +
-        "</ons-card>" +
-
-        " <ons-card onclick='window.location.href = 'calendario.html?id_event=''>" +
-        " <center>" +
-        "<b>Congreso Nacional de Computación</b>" +
-        "<br><b>21 de Noviembre</b>" +
-        "</center>" +
-        "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor...</p>" +
-        "</ons-card>" +
-
-        "<ons-card onclick='window.location.href = 'calendario.html?id_event=''>" +
-        "<center>" +
-        "<b>Taller de Jutsus</b>" +
-        "<br><b>3 de Diciembre</b>" +
-        " </center>" +
-        " <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor...</p>" +
-        "</ons-card>" +
-
-        " <ons-card onclick='window.location.href = 'calendario.html?id_event='' >" +
-        " <center>" +
-        "<b>Taller Avanzado de Jutsus</b>" +
-        " <br><b>7 de Diciembre</b>" +
-        " </center>" +
-        " <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor...</p>" +
-        "</ons-card>";
+        "<div id='eventos'></div>";
 
     document.getElementById('contenido').innerHTML = '';
     document.getElementById('contenido').innerHTML = cal;
+    cargarEventos();
+}
+
+function cargarEventos() {
+   
+   var eventoAjax = new XMLHttpRequest();
+   eventoAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEventos.php');
+   eventoAjax.send();
+  
+   eventoAjax.onreadystatechange = function(){  
+        
+        if (eventoAjax.readyState == 4 && eventoAjax.status == 200) {
+            var ev = JSON.parse(eventoAjax.responseText);
+            console.log(ev[0]);
+            for (var i = 0; i < ev.length ; i++) {
+                var e = 
+                "<ons-card onclick='verEvento("+ev[i].idEvento+")'>" +
+                " <center>" +
+                " <b>"+ev[i].Nombre+"</b>" +
+                " <br><b>"+ev[i].Fecha+"</b>" +
+                "</center>" +
+                "<p>"+ev[i].Descripcion+"</p>" +
+                " </ons-card>";
+
+                document.getElementById('eventos').innerHTML += e;
+
+            }
+           
+        }
+   }
 }
 
 /**
