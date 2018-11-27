@@ -415,7 +415,7 @@ function horarios() {
         "<!-- Item tarjeta -->" +
         "<ons-card style='height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;'>" +
         "<center>Juriquilla - CU</center>" +
-        "<p id='horariosCJ'>11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>" +
+        "<p id='horariosCJ'></p>" +
         " </ons-card>" +
         "<!-- Item tarjeta -->" +
         "<ons-card style='height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;'>" +
@@ -424,7 +424,7 @@ function horarios() {
         " CU - Juriquilla" +
         "</center>" +
         " <!-- Horarios -->" +
-        " <p id='horariosCJ'>11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>" +
+        " <p id='horariosJC'></p>" +
 
         "</ons-card>" +
         "</ons-card>" +
@@ -446,22 +446,8 @@ function horarios() {
 
         "  <!-- Item Carrusel (Tutores) -->" +
         " <ons-carousel-item>" +
-        "<ons-card style='height: 95%; margin-top: 15px; overflow-y:scroll;'>" +
+        "<ons-card style='height: 95%; margin-top: 15px; overflow-y:scroll;' id=todostutores>" +
         " <center><h4>Tutores</h4></center><br><br>" +
-        " <ons-card onclick='verTutor()'>" +
-        " <span>Eduardo Aguirre Caracheo<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
-
-        " <ons-card>" +
-        "  <span>Diego Ibarra Corona<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
-
-        " <ons-card>" +
-        "<span>Alejandro Vargas Díaz<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card> " +
-
-        "</ons-card>" +
-        " </ons-card>" +
         " </ons-carousel-item>" +
 
         "</ons-carousel>";
@@ -469,6 +455,8 @@ function horarios() {
 
     document.getElementById('contenido').innerHTML = '';
     document.getElementById('contenido').innerHTML = horarios;
+    cargarInfoH();
+    cargarTutores();
 
 }
 
@@ -531,7 +519,12 @@ function getForos(){
    }
 }
 
-
+/**
+ *Nombre de la funcion:
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Calendario.
+ *Autor: Fernando Rincon
+ *Versión: 1.0
+ */
 function calendario() {
 
     var cal =
@@ -578,13 +571,13 @@ function cargarEventos() {
    }
 }
 
+
 /**
- *Nombre de la funcion:
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Calendario.
+ *Nombre de la funcion: verConvocatoria
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la convocatoria seleccionada.
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
 function verConvocatoria() {
 
     var conv =
@@ -603,13 +596,13 @@ function verConvocatoria() {
     document.getElementById('contenido').innerHTML = conv;
 }
 
+
 /**
- *Nombre de la funcion: verConvocatoria
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la convocatoria seleccionada.
+ *Nombre de la funcion: verTutor()
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del tutor seleccionado.
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
 function verTutor() {
 
     var tut =
@@ -625,13 +618,13 @@ function verTutor() {
     document.getElementById('contenido').innerHTML = tut;
 }
 
+
 /**
- *Nombre de la funcion: verConvocatoria
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del tutor seleccionado.
+ *Nombre de la funcion: verDiscusion
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la discusión seleccionada.
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
 function verDiscusion(id) {
         var discAjax = new XMLHttpRequest();
         discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getDiscusion.php?idF='+id);
@@ -671,14 +664,14 @@ function verDiscusion(id) {
 
 }
 
+
+
 /**
- *Nombre de la funcion: verDiscusion
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la discusión seleccionada.
+ *Nombre de la funcion: verEvento
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del evento seleccionado.
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
-
 function verEvento(id) {
 
      var evAjax = new XMLHttpRequest();
@@ -688,34 +681,37 @@ function verEvento(id) {
 
                 if (evAjax.readyState == 4 && evAjax.status == 200){
                     console.log(JSON.parse(evAjax.responseText));
+                    var ev = JSON.parse(evAjax.responseText);
+                     var eve = "<center><h3>"+ev[0].Nombre+"</h3></center>" +
+                        "<ons-card>" +
+                        "<h4>Fecha:</h4>" +ev[0].Fecha +
+                        "<h4>Descripción:</h4> "+ev[0].Descripcion +
+                        "<h4>Hora:</h4> "+ev[0].Hora+"<br><br>" +
+                        "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
+                        "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='"+ev[0].ruta+"' > </center>" +
+                        "</ons-card>";
+                    document.getElementById('contenido').innerHTML = '';
+                    document.getElementById('contenido').innerHTML = eve;
                 }
 
         }
 
 
 
-    var eve = "<center><h3>Copa Robots Troyanos</h3></center>" +
-        "<ons-card>" +
-        "<h4>Fecha:</h4> 27 de Noviembre de 2018" +
-        "<h4>Descripción:</h4> Cancha de Usos Múltiples" +
-        "<h4>Hora:</h4> 10:00 a.m. <br><br>" +
-        "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
-        "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='img/carritos.jpg' > </center>" +
-        "</ons-card>";
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = eve;
+   
 
 
 }
 
+
+
 /**
- *Nombre de la funcion: verEvento
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del evento seleccionado.
+ *Nombre de la funcion: nuevoForo()
+ *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con el formulario para que el usuario pueda crear
+ una nueva discusión.
  *Autor: Fernando Rincon
  *Versión: 1.0
  */
-
-
 function nuevoForo() {
 
     console.log('No me piques we');
@@ -739,13 +735,61 @@ function nuevoForo() {
 }
 
 /**
- *Nombre de la funcion: nuevoForo()
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con el formulario para que el usuario pueda crear
- una nueva discusión.
- *Autor: Fernando Rincon
- *Versión: 1.0
- */
+* Función: cargarInfoH()
+* @author Fernando Rincón Amaya
+* Esta función obtiene todos los registros de los horarios de transporte de CU a JURIQUILLA y viceversa, posteriormente
+* los inserta en la tarjeta correspondiente.
+*/
+function cargarInfoH(){
+     var horasAjax = new XMLHttpRequest();
+        horasAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getInfoH.php');
+        horasAjax.send();
+        horasAjax.onreadystatechange = function(){
+            if (horasAjax.readyState == 4 && horasAjax.status == 200) {
+                //console.log(JSON.parse(horasAjax.responseText));
+                var hr = JSON.parse(horasAjax.responseText);
+                for(var i = 0 ; i < hr.length ; i++){
+                    var horario = hr[i];
+                    //console.log(horario.Direccion);
+                    if (horario.Direccion == 'JURIQUILLA - CU') {
+                        document.getElementById('horariosCJ').innerHTML += '| '+horario.Hora+' ';
+                    }else{
+                        document.getElementById('horariosJC').innerHTML += '| '+horario.Hora+' ';
+                    }
+                }
+            }
+        }
 
+}
+
+/**
+* Función: cargarTutores()
+* @author Fernando Rincon Amaya
+* Esta función obtiene los registros de los tutores en la bd y posteriormente los inserta en la vista de tutores.
+*/
+
+function cargarTutores(){
+    var tutorAjax = new XMLHttpRequest();
+        tutorAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutores.php');
+        tutorAjax.send();
+        tutorAjax.onreadystatechange = function(){
+            if (tutorAjax.readyState == 4 && tutorAjax.status == 200) {
+               // console.log(JSON.parse(tutorAjax.responseText));
+                var tut = JSON.parse(tutorAjax.responseText);
+                for(var i = 0 ; i < tut.length ; i++){
+                    var tutor = tut[i];
+                    //console.log(tutor);
+                    var t = 
+                    "<ons-card onclick='verTutor("+tutor.idTutor+")'>" +
+                    " <span>"+tutor.nombre+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                     " </ons-card>";
+
+                     document.getElementById('todostutores').innerHTML += t;
+                    
+                }
+            }
+        }
+}
 
 function subImg() {
     const url = 'php/upload.php';
