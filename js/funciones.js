@@ -337,54 +337,24 @@ function convocatorias() {
 
         " <!-- Item Carrusel (Becas)-->" +
         " <ons-carousel-item>" +
-        " <ons-card style='height: 95%; margin-top: 15px;'>" +
+        " <ons-card style='height: 95%; margin-top: 15px;' id='becas'>" +
         "<center><h4>Becas</h4></center>" +
-        "<!-- Item tarjeta -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria()'>" +
-        "<span>Beca de manutención<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        "</ons-card>" +
-        " <!-- Item tarjeta -->" +
-        " <ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        "<span>Beca de Madres Solteras <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        "</ons-card>" +
-        "<!-- Item tarjeta -->" +
-        "<ons-card  style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        " <span>Beca de Transporte <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
         "</ons-card>" +
         "</ons-carousel-item>" +
 
         "<!-- Item Carrusel (Servicio social) -->" +
         " <ons-carousel-item>" +
-        " <ons-card style='height: 95%; margin-top:15px;'>" +
+        " <ons-card style='height: 95%; margin-top:15px;' id='servicioS'>" +
         " <!-- Item tarjeta -->" +
         "<center><h4>Servicio social</h4>" +
-        " <!-- Item Servicio Social -->" +
-        " <ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        "<span>Servicio social Centro de Desarrollo <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        "</ons-card>   " +
-        "<!-- Item Servicio Social -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        "<span>Servicio social Deportes <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        "</ons-card> " +
-        "<!-- Item Servicio Social -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        "<span>Servicio social Centro de Cómputo <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        "</ons-card>" +
-
         "</center>" +
         " </ons-card>" +
         "</ons-carousel-item>" +
-
         "<!-- Item Carrusel (Bolsa de trabajo) -->" +
         "<ons-carousel-item>" +
-        " <ons-card style='height: 95%; margin-top: 15px;'>" +
+        " <ons-card style='height: 95%; margin-top: 15px;' id='bolsaT'>" +
         "<!-- Item tarjeta -->" +
         "<center><h4>Bolsa de Tarabajo</h4>" +
-        " <!-- Item Servicio Social -->" +
-        "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;'>" +
-        " <span>Prácticas Huawei <i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
         "</center>" +
         " </ons-card>" +
         "</ons-carousel-item>" +
@@ -392,6 +362,7 @@ function convocatorias() {
         "</ons-carousel>";
     document.getElementById('contenido').innerHTML = '';
     document.getElementById('contenido').innerHTML = convocatorias;
+    cargarConvocatorias();
 
 }
 
@@ -457,7 +428,7 @@ function horarios() {
     document.getElementById('contenido').innerHTML = horarios;
     cargarInfoH();
     cargarTutores();
-
+    
 }
 
 
@@ -790,6 +761,39 @@ function cargarTutores(){
             }
         }
 }
+
+
+function cargarConvocatorias(){
+
+    var convAjax = new XMLHttpRequest();
+        convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatorias.php');
+        convAjax.send();
+        convAjax.onreadystatechange = function(){
+            if (convAjax.readyState == 4 && convAjax.status == 200) {
+                var convocatoria = JSON.parse(convAjax.responseText);
+
+                for(var i = 0 ; i < convocatoria.length ; i++){
+                    console.log(convocatoria[i]);
+
+                    var c = 
+                    "<!-- Item tarjeta -->" +
+                    "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria("+convocatoria[i].idConvocatoria+")'>" +
+                    "<span>"+convocatoria[i].Nombre+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                    "</ons-card>";
+
+                    if(convocatoria[i].TipoConvocatoria == 'Beca'){
+                        document.getElementById('becas').innerHTML += c;
+                    }else if(convocatoria[i].TipoConvocatoria == 'Servicio Social'){
+                          document.getElementById('servicioS').innerHTML += c;
+                    }else if(convocatoria[i].TipoConvocatoria == 'Bolsa de Trabajo'){
+                          document.getElementById('bolsaT').innerHTML += c;
+                    }
+
+                }
+            }
+        }
+}
+
 
 function subImg() {
     const url = 'php/upload.php';
