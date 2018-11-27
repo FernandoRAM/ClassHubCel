@@ -325,7 +325,11 @@ function reporte(){
    document.getElementById('contenido').innerHTML = '';
    document.getElementById('contenido').innerHTML = reporte;
 }
-
+/*
+Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de convocatorias.
+Autor: Fernando Rincon 
+Versión: 1.0
+*/
 function convocatorias() {
 
     var convocatorias = "<!-- Carrusel -->" +
@@ -391,9 +395,10 @@ function convocatorias() {
 
 }
 
+
 /*
-Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de convocatorias.
-Autor: Fernando Rincon 
+Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de horarios.
+Autor: Fernando Rincon
 Versión: 1.0
 */
 
@@ -467,8 +472,9 @@ function horarios() {
 
 }
 
+
 /*
-Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de horarios.
+Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Foro.
 Autor: Fernando Rincon
 Versión: 1.0
 */
@@ -478,39 +484,53 @@ function foro() {
     var foro =
         "<!-- Lista de discusiones de usuario -->" +
 
-        "<center><h4>Mis Discusiones</h4></center>" +
+        "<center ><h4>Mis Discusiones</h4></center>" +
+        "<div id='user'><center>No hay registros</center></div>"+
         "<ons-fab position='bottom right'  style='bottom: 60px;' onclick='nuevoForo()'> " +
         " <ons-icon icon='md-plus'></ons-icon> " +
         " </ons-fab>" +
-        "  <!-- Item -->" +
-        "   <ons-card onclick='verDiscusion()'>" +
-        "<span >Llaves perdidas<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
-        "  <!-- Item -->" +
-        "   <ons-card>" +
-        "<span>Ayuda POO<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-        " </ons-card>" +
 
         " <!-- Lista de discusiones de todos -->" +
 
         "<center><h5>Todas</h5></center>" +
-
-        " <!-- Item -->" +
-        " <ons-card>" +
-        "<span>Celular Olvidado<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-
-        "</ons-card>"
-    ;
+        "<div id='todos'></div>";
 
     document.getElementById('contenido').innerHTML = '';
     document.getElementById('contenido').innerHTML = foro;
+    getForos();
+}
+/**
+* Función: getForos()
+* Esta función obtiene todos los registros de los foros en la base de datos y da una vista previa de estos
+* dentro de la vista de foros
+*/
+
+function getForos(){
+    var idU = localStorage.getItem('idUsuario');
+    var foroAjax = new XMLHttpRequest();
+   foroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getForos.php');
+   foroAjax.send();
+
+   foroAjax.onreadystatechange = function (){
+        if (foroAjax.readyState == 4 && foroAjax.status == 200) {
+            var f = JSON.parse(foroAjax.responseText);
+            for(var i =0 ; i< f.length ; i++){
+                var item = "<ons-card onclick='verDiscusion("+f[i].idForo+")'>" +
+                            "<span >"+f[i].Titulo+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                            " </ons-card>";
+                if (f[i].idUsuario == idU) {
+                    document.getElementById('user').innerHTML = '';
+                    document.getElementById('user').innerHTML += item;
+                }else{
+                    document.getElementById('todos').innerHTML = '';
+                    document.getElementById('todos').innerHTML += item;
+                }
+               
+            }
+        }
+   }
 }
 
-/*
-Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Foro.
-Autor: Fernando Rincon
-Versión: 1.0
-*/
 
 function calendario() {
 
@@ -523,6 +543,11 @@ function calendario() {
     document.getElementById('contenido').innerHTML = cal;
     cargarEventos();
 }
+/**
+*Función: cargarEventos()
+* @author Fernando Rincón
+* Esta función obtiene todos los registros de los eventos y los inserta mediante AJAX a la vista del calendario.
+*/
 
 function cargarEventos() {
    
@@ -607,27 +632,42 @@ function verTutor() {
  *Versión: 1.0
  */
 
-function verDiscusion() {
+function verDiscusion(id) {
+        var discAjax = new XMLHttpRequest();
+        discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getDiscusion.php?idF='+id);
+        discAjax.send();
+        discAjax.onreadystatechange = function(){
+            
+        if (discAjax.readyState == 4 && discAjax.status == 200) {
+            console.log(JSON.parse(discAjax.responseText));
+            var dis = JSON.parse(discAjax.responseText);
 
-    var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>" +
-        "<center><h3>Título de Discusión</h3> </center>" +
-        "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique optio quibusdam error, doloremque est quasi </p>" +
+            var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>" +
+                "<center><h3>"+dis[0].Titulo+"</h3> </center>" +
+                "<p>"+dis[0].Descripcion+"</p>" +
+                " <center>" +
+                " <img src='"+dis[0].ruta+"' style='width: 300px !important;'>" +
+                " </center>" +
+                " <h4>Comentarios:</h4>" +
+                " <div id='comentarios'></div>"+
+                " <p>Ruben Burgos: Son mias muchas gracias.</p>" +
+                " <p>Fernando Rincon: No hay de que.</p>" +
+
+                " </ons-card><br>" +
+
+                " <ons-input style='width: 65%;margin-left: 5%;' id='comentario' type='text' placeholder='Comentar...'></ons-input>" +
+                "<ons-button modifier='quiet' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
 
 
-        " <center>" +
-        " <img src='img/llaves.jpg' style='width: 300px !important;'>" +
-        " </center>" +
-        " <h4>Comentarios:</h4>" +
-        " <p>Ruben Burgos: Son mias muchas gracias.</p>" +
-        "<p>Fernando Rincon: No hay de que.</p>" +
+        document.getElementById('contenido').innerHTML = '';
+        document.getElementById('contenido').innerHTML = disc;
+        }
 
-        " </ons-card><br>" +
+       }
 
-        " <ons-input style='width: 65%;margin-left: 5%;' id='comentario' type='text' placeholder='Comentar...'></ons-input>" +
-        "<ons-button modifier='quiet' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
+  
 
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = disc;
+    
 
 }
 
@@ -639,17 +679,33 @@ function verDiscusion() {
  */
 
 
-function verEvento() {
+function verEvento(id) {
+
+     var evAjax = new XMLHttpRequest();
+        evAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEvento.php?idE='+id);
+        evAjax.send();
+        evAjax.onreadystatechange = function(){
+
+                if (evAjax.readyState == 4 && evAjax.status == 200){
+                    console.log(JSON.parse(evAjax.responseText));
+                }
+
+        }
+
+
+
     var eve = "<center><h3>Copa Robots Troyanos</h3></center>" +
         "<ons-card>" +
         "<h4>Fecha:</h4> 27 de Noviembre de 2018" +
-        "<h4>Lugar:</h4> Cancha de Usos Múltiples" +
+        "<h4>Descripción:</h4> Cancha de Usos Múltiples" +
         "<h4>Hora:</h4> 10:00 a.m. <br><br>" +
         "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
         "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='img/carritos.jpg' > </center>" +
         "</ons-card>";
     document.getElementById('contenido').innerHTML = '';
     document.getElementById('contenido').innerHTML = eve;
+
+
 }
 
 /**
