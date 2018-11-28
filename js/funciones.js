@@ -39,7 +39,6 @@ function verificaSesion(){
 * De haber ingresado los datos correctos se redirigirá al usuario a la pantalla de inicio, de los contrario se muestra un aviso
 * de que sus datos son incorrectos y debe intentarlo de nuevo.
 * @author: Fernando Rincón
-* Versión: 1.0
 */
 
 function login() {
@@ -327,8 +326,7 @@ function reporte(){
 }
 /*
 Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de convocatorias.
-Autor: Fernando Rincon 
-Versión: 1.0
+@author Fernando Rinco
 */
 function convocatorias() {
 
@@ -369,8 +367,7 @@ function convocatorias() {
 
 /*
 Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de horarios.
-Autor: Fernando Rincon
-Versión: 1.0
+@author Fernando Rinc
 */
 
 function horarios() {
@@ -434,8 +431,7 @@ function horarios() {
 
 /*
 Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Foro.
-Autor: Fernando Rincon
-Versión: 1.0
+@author Fernando Rinc
 */
 
 function foro() {
@@ -491,10 +487,9 @@ function getForos(){
 }
 
 /**
- *Nombre de la funcion:
+ *Función:
  *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de Calendario.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ *@author Fernando Rincon
  */
 function calendario() {
 
@@ -544,57 +539,81 @@ function cargarEventos() {
 
 
 /**
- *Nombre de la funcion: verConvocatoria
- *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la convocatoria seleccionada.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ * Función: verConvocatoria
+ * Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la convocatoria seleccionada.
+ * Los datos de la convocatoria son recuperados de la bd a través de AJAX.
+ * @author Fernando Rincon
  */
-function verConvocatoria() {
+function verConvocatoria(id) {
 
-    var conv =
+     var convAjax = new XMLHttpRequest();
+        convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatoria.php?idCon='+id);
+        convAjax.send();
+        convAjax.onreadystatechange = function(){
+           
+                if(convAjax.readyState == 4 && convAjax.status == 200){
+                    var c = JSON.parse(convAjax.responseText);
+                    //console.log(c);
+                    var conv =
 
-        "<ons-card style='height: 95%; margin-top: 15px;'>" +
-        " <center><h3>Título Convocatoria</h3> " +
-        "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique optio quibusdam error, doloremque est quasi necessitatibus atque ab et quae eveniet voluptate suscipit deserunt, facere commodi nostrum labore totam quis.</p>" +
-        " </center>" +
-        "<a href=' https://www.uaq.mx/informatica/descargas/Convocatoria_MIS06_2019_A.pdf'> https://www.uaq.mx/informatica/descargas/Convocatoria_MIS06_2019_A.pdf</a>" +
-        "<center> " +
-        " <img src='img/convocatoria.jpg' style='width: 300px !important;'> " +
-        " </center>" +
-        "</ons-card> ";
+                            "<ons-card style='height: 95%; margin-top: 15px;'>" +
+                            " <center><h3>"+c[0].Nombre+"</h3> " +
+                            "<p>"+c[0].Descripcion+"</p>" +
+                            " </center>" +
+                            "<center> " +
+                            " <img src='"+c[0].ruta+"' style='width: 300px !important;'> " +
+                            " </center>" +
+                            "</ons-card> ";
 
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = conv;
+                        document.getElementById('contenido').innerHTML = '';
+                        document.getElementById('contenido').innerHTML = conv;
+                
+            }
+        }
+
+   
 }
 
 
 /**
- *Nombre de la funcion: verTutor()
+ *Función: verTutor()
  *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del tutor seleccionado.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ *@author Fernando Rincon
  */
-function verTutor() {
+function verTutor(id) {
 
-    var tut =
-        "<ons-card style='height: 95%; margin-top: 15px;'>" +
-        "<center><img src='img/lalo.jpg' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
-        "<h4>Eduardo Aguirre Caracheo </h4><br></center>" +
-        "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
-        "<p>Contacto: 4426172635</p>" +
-        " <p>Cubículo: Centro de Desarrollo</p>" +
-        "</ons-card>";
-    "</ons-card>";
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = tut;
+     var tutAjax = new XMLHttpRequest();
+        tutAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutor.php?idT='+id);
+        tutAjax.send();
+        tutAjax.onreadystatechange = function(){
+            if(tutAjax.readyState == 4 && tutAjax.status == 200){
+                var t = JSON.parse(tutAjax.responseText);
+                console.log(t);
+
+               
+                    var tut =
+                        "<ons-card style='height: 95%; margin-top: 15px;'>" +
+                        "<center><img src='"+t[0].ruta+"' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
+                        "<h4>"+t[0].nombre+"</h4><br></center>" +
+                        "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
+                       " <p>Correo: "+t[0].correo+"</p>" +
+                        " <p>Cubículo: "+t[0].cubiculo+"</p>" +
+                        " <p>Horarios: "+t[0].horarios+"</p>" +
+                        "</ons-card>";
+
+                document.getElementById('contenido').innerHTML = '';
+                document.getElementById('contenido').innerHTML = tut;
+            }
+        }
+    
+    
 }
 
 
 /**
- *Nombre de la funcion: verDiscusion
+ *Función: verDiscusion
  *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información de la discusión seleccionada.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ *@author Fernando Rincon
  */
 function verDiscusion(id) {
         var discAjax = new XMLHttpRequest();
@@ -603,7 +622,7 @@ function verDiscusion(id) {
         discAjax.onreadystatechange = function(){
             
         if (discAjax.readyState == 4 && discAjax.status == 200) {
-            console.log(JSON.parse(discAjax.responseText));
+           //console.log(JSON.parse(discAjax.responseText));
             var dis = JSON.parse(discAjax.responseText);
 
             var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>" +
@@ -614,34 +633,52 @@ function verDiscusion(id) {
                 " </center>" +
                 " <h4>Comentarios:</h4>" +
                 " <div id='comentarios'></div>"+
-                " <p>Ruben Burgos: Son mias muchas gracias.</p>" +
-                " <p>Fernando Rincon: No hay de que.</p>" +
-
                 " </ons-card><br>" +
-
                 " <ons-input style='width: 65%;margin-left: 5%;' id='comentario' type='text' placeholder='Comentar...'></ons-input>" +
                 "<ons-button modifier='quiet' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
 
 
         document.getElementById('contenido').innerHTML = '';
         document.getElementById('contenido').innerHTML = disc;
+
         }
-
        }
+       cargarComentarios(id);
+}
 
-  
+function cargarComentarios(id){
+     var comentAjax = new XMLHttpRequest();
+        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getComentarios.php?idCom='+id);
+        comentAjax.send();
+        comentAjax.onreadystatechange = setTimeout(function(){
 
-    
+            if (comentAjax.readyState == 4 && comentAjax.status == 200){
+                var com = JSON.parse(comentAjax.responseText);
+                if (com != 0) {
+                  for(var i = 0; i < com.length; i++){
+                    var c = 
+                    " <p>"+com[i].NomUsuario+": "+com[i].Comentario+"</p>";
+                     document.getElementById('comentarios').innerHTML += c;
+ 
+                    }  
+                }else{
 
+                    var c = 
+                    " <p>No hay comentarios disponibles...</p>";
+                     document.getElementById('comentarios').innerHTML += c;
+                }
+                
+            }
+
+        }, 800);
 }
 
 
 
 /**
- *Nombre de la funcion: verEvento
+ *Función: verEvento
  *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con la información del evento seleccionado.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ *@author Fernando Rincon
  */
 function verEvento(id) {
 
@@ -666,22 +703,15 @@ function verEvento(id) {
                 }
 
         }
-
-
-
-   
-
-
 }
 
 
 
 /**
- *Nombre de la funcion: nuevoForo()
+ *Función: nuevoForo()
  *Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por la vista con el formulario para que el usuario pueda crear
  una nueva discusión.
- *Autor: Fernando Rincon
- *Versión: 1.0
+ *@author Fernando Rincon
  */
 function nuevoForo() {
 
@@ -762,6 +792,12 @@ function cargarTutores(){
         }
 }
 
+/**
+* Función: cargarConvocatorias()
+* @author Fernando Rincón Amaya
+* Esta función obtiene los registros de las convocatorias en la bd y posteriormente los inserta en la vista correspondiente, ya sea
+* para becas, servicio social o bolsa de trabajo.
+*/
 
 function cargarConvocatorias(){
 
@@ -773,7 +809,7 @@ function cargarConvocatorias(){
                 var convocatoria = JSON.parse(convAjax.responseText);
 
                 for(var i = 0 ; i < convocatoria.length ; i++){
-                    console.log(convocatoria[i]);
+                    //console.log(convocatoria[i]);
 
                     var c = 
                     "<!-- Item tarjeta -->" +

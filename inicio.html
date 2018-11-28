@@ -45,7 +45,7 @@
                 <!-- Item tarjeta -->
                 <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
                     <center>Juriquilla - CU</center>
-                    <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
+                    <p id="horariosCJ"></p>
                 </ons-card>
                 <!-- Item tarjeta -->
                 <ons-card style="height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;">
@@ -54,7 +54,7 @@
                         CU - Juriquilla
                     </center>
                     <!-- Horarios -->
-                    <p id="horariosCJ">11:00, 13:00, 14:10, 13:00, 16:00, 16:30, 17:30, 17:10</p>
+                    <p id="horariosJC"></p>
                 </ons-card>
             </ons-card>
         </ons-carousel-item>
@@ -143,23 +143,10 @@
 
         <!-- Item Carrusel (Tutores) -->
         <ons-carousel-item>
-            <ons-card style="height: 95%; margin-top: 15px; overflow-y:scroll;">
+            <ons-card id='todostutores' style="height: 95%; margin-top: 15px; overflow-y:scroll; ">
                 <center><h4>Tutores</h4></center>
                 <br><br>
-                <ons-card onclick='verTutor()'>
-                    <span>Eduardo Aguirre Caracheo<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
-                                                     style='float:right;'></i></span>
-                </ons-card>
-
-                <ons-card>
-                    <span>Diego Ibarra Corona<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
-                                                style='float:right;'></i></span>
-                </ons-card>
-
-                <ons-card>
-                    <span>Alejandro Vargas Díaz<i class='zmdi zmdi-chevron-right zmdi-hc-lg'
-                                                  style='float:right;'></i></span>
-                </ons-card>
+               
 
             </ons-card>
             </ons-card>
@@ -203,6 +190,8 @@
 <script>
 	// Funcion verificaSesion() al inicializar la ventana
 	window.addEventListener('load', verificaSesion, true);
+        window.addEventListener('load', cargarInfoH, true);
+    window.addEventListener('load', cargarTutores, true);
 </script>
 
 
