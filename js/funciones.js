@@ -635,7 +635,7 @@ function verDiscusion(id) {
                 " <div id='comentarios'></div>"+
                 " </ons-card><br>" +
                 " <ons-input style='width: 65%;margin-left: 5%;' id='comentario' type='text' placeholder='Comentar...'></ons-input>" +
-                "<ons-button modifier='quiet' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
+                "<ons-button modifier='quiet' onclick='comentar("+id+")' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
 
 
         document.getElementById('contenido').innerHTML = '';
@@ -646,6 +646,11 @@ function verDiscusion(id) {
        cargarComentarios(id);
 }
 
+/**
+ * Función: cargarComentarios(id)
+ * @author Fernando Rincón Amaya
+ * Esta función obtiene como parámtero el id del foro para hacer una petición po AJAX al servidor y obtener los comentarios de dicho foro.
+ */
 function cargarComentarios(id){
      var comentAjax = new XMLHttpRequest();
         comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getComentarios.php?idCom='+id);
@@ -673,6 +678,27 @@ function cargarComentarios(id){
         }, 800);
 }
 
+
+function comentar(idForo){
+    console.log(idForo);
+    var coment = document.getElementById('comentario').value;
+    var idUsuario = localStorage.getItem('idUsuario');  
+
+    if(coment != '' && coment != '   '){
+        var comentAjax = new XMLHttpRequest();
+        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/comentar.php?idForo='+idForo+'&Com='+coment+'&idU='+idUsuario);
+        comentAjax.send();
+        comentAjax.onreadystatechange = function(){
+            if(comentAjax.readyState == 4 && comentAjax.status == 200){
+                var com = JSON.parse(comentAjax.responseText);
+                console.log(com);
+
+            }
+        }
+    }else{
+        showToast('Completa los campos...');
+    }
+}
 
 
 /**
