@@ -216,11 +216,12 @@ function pre_hash(str) {
 */
 function upReporte(){
     var desc = document.getElementById('descripcion').value;
+    var tituloR = document.getElementById('tituloReporte').value;
     var idU = localStorage.getItem('idUsuario');
 
     if (desc != '' && idU != '') {
         reporteAjax = new XMLHttpRequest();
-        reporteAjax.open('GET','http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion='+desc+'&idU='+idU);
+        reporteAjax.open('GET','http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion='+desc+'&idU='+idU+'&tituloR='+tituloR);
         reporteAjax.send();
         reporteAjax.onreadystatechange = function(){
             if (reporteAjax.readyState == 4 && reporteAjax.status == 200) {
@@ -313,7 +314,7 @@ function reporte(){
    " <ons-card style='height: 95%;'>"+
       
         
-         
+         " Título: <ons-input id='tituloReporte' modifier='underbar' placeholder='' float></ons-input><br><br>" +
           "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
         
         "<center><label> <img src='img/photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;'> </label><br></center>"+
@@ -598,7 +599,7 @@ function verTutor(id) {
                         "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
                        " <p>Correo: "+t[0].correo+"</p>" +
                         " <p>Cubículo: "+t[0].cubiculo+"</p>" +
-                        " <p>Horarios: "+t[0].horarios+"</p>" +
+                        " <p>Horarios: De "+t[0].horaInicio+" a "+t[0].horaFin+"</p>" +
                         "</ons-card>";
 
                 document.getElementById('contenido').innerHTML = '';
