@@ -218,10 +218,12 @@ function upReporte(){
     var desc = document.getElementById('descripcion').value;
     var tituloR = document.getElementById('tituloReporte').value;
     var idU = localStorage.getItem('idUsuario');
+    var fecha = new Date().toJSON().slice(0, 10);
+   
 
     if (desc != '' && idU != '') {
         reporteAjax = new XMLHttpRequest();
-        reporteAjax.open('GET','http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion='+desc+'&idU='+idU+'&tituloR='+tituloR);
+        reporteAjax.open('GET','http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion='+desc+'&idU='+idU+'&tituloR='+tituloR+'&fecha='+fecha);
         reporteAjax.send();
         reporteAjax.onreadystatechange = function(){
             if (reporteAjax.readyState == 4 && reporteAjax.status == 200) {
@@ -519,7 +521,7 @@ function cargarEventos() {
         
         if (eventoAjax.readyState == 4 && eventoAjax.status == 200) {
             var ev = JSON.parse(eventoAjax.responseText);
-            console.log(ev[0]);
+            //console.log(ev[0]);
             for (var i = 0; i < ev.length ; i++) {
                 var e = 
                 "<ons-card onclick='verEvento("+ev[i].idEvento+")'>" +
@@ -836,7 +838,7 @@ function cargarConvocatorias(){
                 var convocatoria = JSON.parse(convAjax.responseText);
 
                 for(var i = 0 ; i < convocatoria.length ; i++){
-                    //console.log(convocatoria[i]);
+                    console.log(convocatoria[i]);
 
                     var c = 
                     "<!-- Item tarjeta -->" +
