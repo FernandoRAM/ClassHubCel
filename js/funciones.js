@@ -1,7 +1,7 @@
 history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
+window.onpopstate = function () {
+    history.go(1);
+};
 /**
  * Función: logout()
  * @author: Fernando Rincón
@@ -10,10 +10,10 @@ history.pushState(null, null, location.href);
  * una sesión activa.
  * 
  */
-function logout(){
-    localStorage.removeItem('idUsuario'); 
+function logout() {
+    localStorage.removeItem('idUsuario');
     window.location.assign('index.html');
-    
+
 }
 
 /**
@@ -23,10 +23,10 @@ function logout(){
  * Esta función se ejecuta al cargar index.html y verifica que existe la variable de sesión, de no ser así se redirige
  * al usuario a la pantalla de login.
  */
-function verificaSesion(){
-    if(localStorage.getItem('idUsuario')){
-        
-    }else{
+function verificaSesion() {
+    if (localStorage.getItem('idUsuario')) {
+
+    } else {
         window.location.assign('index.html');
     }
 }
@@ -63,7 +63,7 @@ function login() {
                 } else {
                     exp = '';
                     passs = '';
-                    showToast('Datos incorrectos inenta de nuevo.');
+                    showToast('Datos incorrectos intenta de nuevo.');
                 }
 
 
@@ -214,33 +214,33 @@ function pre_hash(str) {
 * al servidor para almacenar los datos y que posteriormente el administrador lo pueda revisar.
 * 
 */
-function upReporte(){
+function upReporte() {
     var desc = document.getElementById('descripcion').value;
     var tituloR = document.getElementById('tituloReporte').value;
     var idU = localStorage.getItem('idUsuario');
     var fecha = new Date().toJSON().slice(0, 10);
-   
+
 
     if (desc != '' && idU != '') {
         reporteAjax = new XMLHttpRequest();
-        reporteAjax.open('GET','http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion='+desc+'&idU='+idU+'&tituloR='+tituloR+'&fecha='+fecha);
+        reporteAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion=' + desc + '&idU=' + idU + '&tituloR=' + tituloR + '&fecha=' + fecha);
         reporteAjax.send();
-        reporteAjax.onreadystatechange = function(){
+        reporteAjax.onreadystatechange = function () {
             if (reporteAjax.readyState == 4 && reporteAjax.status == 200) {
                 var response = reporteAjax.responseText;
-               
+
                 if (response == '1') {
                     alert('¡Reporte enviado exitosamente!');
-                     window.location.assign('inicio.html');
+                    window.location.assign('inicio.html');
                 }
-                else{
+                else {
                     showToast('Error inesperado intentalo más tarde...');
                     window.location.assign('inicio.html');
                 }
             }
         }
-        
-    }else {
+
+    } else {
         showToast('Completa los campos...');
     }
 }
@@ -255,38 +255,37 @@ function upReporte(){
 
 function upForo() {
 
-  var titulo = document.getElementById('tituloForo').value;
-  var desc = document.getElementById('descripcion').value;
-  var idU = localStorage.getItem('idUsuario');
-  
-  if (titulo != '' && desc != '') {
+    var titulo = document.getElementById('tituloForo').value;
+    var desc = document.getElementById('descripcion').value;
+    var idU = localStorage.getItem('idUsuario');
 
-      loginAjax = new XMLHttpRequest();
-      loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo='+titulo+'&desc='+desc+'&idU='+idU);
-      loginAjax.send();
-      loginAjax.onreadystatechange = function () {
-          if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+    if (titulo != '' && desc != '') {
 
-              var respuesta = loginAjax.responseText;
-              alert(loginAjax.status);
+        loginAjax = new XMLHttpRequest();
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU);
+        loginAjax.send();
+        loginAjax.onreadystatechange = function () {
+            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
 
-              if (respuesta == '1') {
+                var respuesta = loginAjax.responseText;
+                alert(loginAjax.status);
 
-                  alert('Discusión publicada exitosamente!');
-                  window.location.assign('inicio.html');
+                if (respuesta == '1') {
+                    alert('Discusión publicada exitosamente!');
+                    window.location.assign('inicio.html');
 
-              } else {
-                  titulo = '';
-                  desc = '';
-                  alert(login.responseText);
-              }
-          } else {
-            //alert(loginAjax.status);
-          }
-      }
-  } else {
-      showToast('Completa los campos...');
-  }
+                } else {
+                    titulo = '';
+                    desc = '';
+                    alert(login.responseText);
+                }
+            } else {
+                //alert(loginAjax.status);
+            }
+        }
+    } else {
+        showToast('Completa los campos...');
+    }
 
 }
 
@@ -310,22 +309,23 @@ var showToast = function (msj) {
  * 
  * Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página para enviar un reporte.
  */
-function reporte(){
-    var reporte = 
-   " <form method='POST' enctype='multipart/form-data '>"+
-   " <ons-card style='height: 95%;'>"+
-      
-        
-         " Título: <ons-input id='tituloReporte' modifier='underbar' placeholder='' float></ons-input><br><br>" +
-          "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>"+
-        
-        "<center><label> <img src='img/photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;'> </label><br></center>"+
-       " <center><label><ons-button onclick='upReporte()' modifier='large' style='background-color:red;'>Enviar Reporte</ons-button> </label> </center>"+
-      
-     " </ons-card>"+
-   " </form>";
-   document.getElementById('contenido').innerHTML = '';
-   document.getElementById('contenido').innerHTML = reporte;
+function reporte() {
+    var reporte =
+        " <form method='POST' enctype='multipart/form-data '>" +
+        " <ons-card style='height: 95%;'>" +
+
+
+        " Título: <ons-input id='tituloReporte' modifier='underbar' placeholder='' float></ons-input><br><br>" +
+        "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
+
+        "<label> <div class='dropzone'><div class='info'></div></div> </label><br>" +
+        "<input type='text' id='urlImg' hidden>" +
+        " <center><label><ons-button onclick='upReporte()' modifier='large' style='background-color:red;'>Enviar Reporte</ons-button> </label> </center>" +
+
+        "</ons-card>" +
+        " </form>";
+    document.getElementById('contenido').innerHTML = '';
+    document.getElementById('contenido').innerHTML = reporte;
 }
 /*
 Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de convocatorias.
@@ -382,7 +382,7 @@ function horarios() {
         " <!-- Item Carrusel (Transporte)-->" +
         "<ons-carousel-item>" +
         "<ons-card style='height: 95%; margin-top: 15px;'>" +
-        "<center><h4>Horarios de Transporte</h4></center>" +
+        "<center><h4>Horarios de transporte</h4></center>" +
         "<!-- Item tarjeta -->" +
         "<ons-card style='height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;'>" +
         "<center>Juriquilla - CU</center>" +
@@ -428,7 +428,7 @@ function horarios() {
     document.getElementById('contenido').innerHTML = horarios;
     cargarInfoH();
     cargarTutores();
-    
+
 }
 
 
@@ -442,8 +442,8 @@ function foro() {
     var foro =
         "<!-- Lista de discusiones de usuario -->" +
 
-        "<center ><h4>Mis Discusiones</h4></center>" +
-        "<div id='user'><center>No hay registros</center></div>"+
+        "<center ><h4>Mis discusiones</h4></center>" +
+        "<div id='user'><center>No hay registros</center></div>" +
         "<ons-fab position='bottom right'  style='bottom: 60px;' onclick='nuevoForo()'> " +
         " <ons-icon icon='md-plus'></ons-icon> " +
         " </ons-fab>" +
@@ -463,30 +463,30 @@ function foro() {
 * dentro de la vista de foros
 */
 
-function getForos(){
+function getForos() {
     var idU = localStorage.getItem('idUsuario');
     var foroAjax = new XMLHttpRequest();
-   foroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getForos.php');
-   foroAjax.send();
+    foroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getForos.php');
+    foroAjax.send();
 
-   foroAjax.onreadystatechange = function (){
+    foroAjax.onreadystatechange = function () {
         if (foroAjax.readyState == 4 && foroAjax.status == 200) {
             var f = JSON.parse(foroAjax.responseText);
-            for(var i =0 ; i< f.length ; i++){
-                var item = "<ons-card onclick='verDiscusion("+f[i].idForo+")'>" +
-                            "<span >"+f[i].Titulo+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-                            " </ons-card>";
+            for (var i = 0; i < f.length; i++) {
+                var item = "<ons-card onclick='verDiscusion(" + f[i].idForo + ")'>" +
+                    "<span >" + f[i].Titulo + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                    " </ons-card>";
                 if (f[i].idUsuario == idU) {
                     document.getElementById('user').innerHTML = '';
                     document.getElementById('user').innerHTML += item;
-                }else{
+                } else {
                     document.getElementById('todos').innerHTML = '';
                     document.getElementById('todos').innerHTML += item;
                 }
-               
+
             }
         }
-   }
+    }
 }
 
 /**
@@ -512,32 +512,32 @@ function calendario() {
 */
 
 function cargarEventos() {
-   
-   var eventoAjax = new XMLHttpRequest();
-   eventoAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEventos.php');
-   eventoAjax.send();
-  
-   eventoAjax.onreadystatechange = function(){  
-        
+
+    var eventoAjax = new XMLHttpRequest();
+    eventoAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEventos.php');
+    eventoAjax.send();
+
+    eventoAjax.onreadystatechange = function () {
+
         if (eventoAjax.readyState == 4 && eventoAjax.status == 200) {
             var ev = JSON.parse(eventoAjax.responseText);
             //console.log(ev[0]);
-            for (var i = 0; i < ev.length ; i++) {
-                var e = 
-                "<ons-card onclick='verEvento("+ev[i].idEvento+")'>" +
-                " <center>" +
-                " <b>"+ev[i].Nombre+"</b>" +
-                " <br><b>"+ev[i].Fecha+"</b>" +
-                "</center>" +
-                "<p>"+ev[i].Descripcion+"</p>" +
-                " </ons-card>";
+            for (var i = 0; i < ev.length; i++) {
+                var e =
+                    "<ons-card onclick='verEvento(" + ev[i].idEvento + ")'>" +
+                    " <center>" +
+                    " <b>" + ev[i].Nombre + "</b>" +
+                    " <br><b>" + ev[i].Fecha + "</b>" +
+                    "</center>" +
+                    "<p>" + ev[i].Descripcion + "</p>" +
+                    " </ons-card>";
 
                 document.getElementById('eventos').innerHTML += e;
 
             }
-           
+
         }
-   }
+    }
 }
 
 
@@ -549,32 +549,32 @@ function cargarEventos() {
  */
 function verConvocatoria(id) {
 
-     var convAjax = new XMLHttpRequest();
-        convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatoria.php?idCon='+id);
-        convAjax.send();
-        convAjax.onreadystatechange = function(){
-           
-                if(convAjax.readyState == 4 && convAjax.status == 200){
-                    var c = JSON.parse(convAjax.responseText);
-                    //console.log(c);
-                    var conv =
+    var convAjax = new XMLHttpRequest();
+    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatoria.php?idCon=' + id);
+    convAjax.send();
+    convAjax.onreadystatechange = function () {
 
-                            "<ons-card style='height: 95%; margin-top: 15px;'>" +
-                            " <center><h3>"+c[0].Nombre+"</h3> " +
-                            "<p>"+c[0].Descripcion+"</p>" +
-                            " </center>" +
-                            "<center> " +
-                            " <img src='"+c[0].ruta+"' style='width: 300px !important;'> " +
-                            " </center>" +
-                            "</ons-card> ";
+        if (convAjax.readyState == 4 && convAjax.status == 200) {
+            var c = JSON.parse(convAjax.responseText);
+            //console.log(c);
+            var conv =
 
-                        document.getElementById('contenido').innerHTML = '';
-                        document.getElementById('contenido').innerHTML = conv;
-                
-            }
+                "<ons-card style='height: 95%; margin-top: 15px;'>" +
+                " <center><h3>" + c[0].Nombre + "</h3> " +
+                "<p>" + c[0].Descripcion + "</p>" +
+                " </center>" +
+                "<center> " +
+                " <img src='" + c[0].ruta + "' style='width: 300px !important;'> " +
+                " </center>" +
+                "</ons-card> ";
+
+            document.getElementById('contenido').innerHTML = '';
+            document.getElementById('contenido').innerHTML = conv;
+
         }
+    }
 
-   
+
 }
 
 
@@ -585,31 +585,31 @@ function verConvocatoria(id) {
  */
 function verTutor(id) {
 
-     var tutAjax = new XMLHttpRequest();
-        tutAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutor.php?idT='+id);
-        tutAjax.send();
-        tutAjax.onreadystatechange = function(){
-            if(tutAjax.readyState == 4 && tutAjax.status == 200){
-                var t = JSON.parse(tutAjax.responseText);
-                console.log(t);
+    var tutAjax = new XMLHttpRequest();
+    tutAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutor.php?idT=' + id);
+    tutAjax.send();
+    tutAjax.onreadystatechange = function () {
+        if (tutAjax.readyState == 4 && tutAjax.status == 200) {
+            var t = JSON.parse(tutAjax.responseText);
+            console.log(t);
 
-               
-                    var tut =
-                        "<ons-card style='height: 95%; margin-top: 15px;'>" +
-                        "<center><img src='"+t[0].ruta+"' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
-                        "<h4>"+t[0].nombre+"</h4><br></center>" +
-                        "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
-                       " <p>Correo: "+t[0].correo+"</p>" +
-                        " <p>Cubículo: "+t[0].cubiculo+"</p>" +
-                        " <p>Horarios: De "+t[0].horaInicio+" a "+t[0].horaFin+"</p>" +
-                        "</ons-card>";
 
-                document.getElementById('contenido').innerHTML = '';
-                document.getElementById('contenido').innerHTML = tut;
-            }
+            var tut =
+                "<ons-card style='height: 95%; margin-top: 15px;'>" +
+                "<center><img src='" + t[0].ruta + "' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
+                "<h4>" + t[0].nombre + "</h4><br></center>" +
+                "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
+                " <p>Correo: " + t[0].correo + "</p>" +
+                " <p>Cubículo: " + t[0].cubiculo + "</p>" +
+                " <p>Horarios: De " + t[0].horaInicio + " a " + t[0].horaFin + "</p>" +
+                "</ons-card>";
+
+            document.getElementById('contenido').innerHTML = '';
+            document.getElementById('contenido').innerHTML = tut;
         }
-    
-    
+    }
+
+
 }
 
 
@@ -619,34 +619,34 @@ function verTutor(id) {
  *@author Fernando Rincon
  */
 function verDiscusion(id) {
-        var discAjax = new XMLHttpRequest();
-        discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getDiscusion.php?idF='+id);
-        discAjax.send();
-        discAjax.onreadystatechange = function(){
-            
+    var discAjax = new XMLHttpRequest();
+    discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getDiscusion.php?idF=' + id);
+    discAjax.send();
+    discAjax.onreadystatechange = function () {
+
         if (discAjax.readyState == 4 && discAjax.status == 200) {
-           //console.log(JSON.parse(discAjax.responseText));
+            //console.log(JSON.parse(discAjax.responseText));
             var dis = JSON.parse(discAjax.responseText);
 
             var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>" +
-                "<center><h3>"+dis[0].Titulo+"</h3> </center>" +
-                "<p>"+dis[0].Descripcion+"</p>" +
+                "<center><h3>" + dis[0].Titulo + "</h3> </center>" +
+                "<p>" + dis[0].Descripcion + "</p>" +
                 " <center>" +
-                " <img src='"+dis[0].ruta+"' style='width: 300px !important;'>" +
+                " <img src='" + dis[0].ruta + "' style='width: 300px !important;'>" +
                 " </center>" +
                 " <h4>Comentarios:</h4>" +
-                " <div id='comentarios'></div>"+
+                " <div id='comentarios'></div>" +
                 " </ons-card><br>" +
                 " <ons-input style='width: 65%;margin-left: 5%;' id='comentario' type='text' placeholder='Comentar...'></ons-input>" +
-                "<ons-button modifier='quiet' onclick='comentar("+id+")' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
+                "<ons-button modifier='quiet' onclick='comentar(" + id + ")' style='margin-left:4%;background-color: #dbdada;text-align: center'><center>Enviar</center></ons-button>";
 
 
-        document.getElementById('contenido').innerHTML = '';
-        document.getElementById('contenido').innerHTML = disc;
+            document.getElementById('contenido').innerHTML = '';
+            document.getElementById('contenido').innerHTML = disc;
 
         }
-       }
-       cargarComentarios(id);
+    }
+    cargarComentarios(id);
 }
 
 /**
@@ -654,51 +654,51 @@ function verDiscusion(id) {
  * @author Fernando Rincón Amaya
  * Esta función obtiene como parámtero el id del foro para hacer una petición po AJAX al servidor y obtener los comentarios de dicho foro.
  */
-function cargarComentarios(id){
-     var comentAjax = new XMLHttpRequest();
-        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getComentarios.php?idCom='+id);
-        comentAjax.send();
-        comentAjax.onreadystatechange = setTimeout(function(){
+function cargarComentarios(id) {
+    var comentAjax = new XMLHttpRequest();
+    comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getComentarios.php?idCom=' + id);
+    comentAjax.send();
+    comentAjax.onreadystatechange = setTimeout(function () {
 
-            if (comentAjax.readyState == 4 && comentAjax.status == 200){
-                var com = JSON.parse(comentAjax.responseText);
-                if (com != 0) {
-                  for(var i = 0; i < com.length; i++){
-                    var c = 
-                    " <p>"+com[i].NomUsuario+": "+com[i].Comentario+"</p>";
-                     document.getElementById('comentarios').innerHTML += c;
- 
-                    }  
-                }else{
+        if (comentAjax.readyState == 4 && comentAjax.status == 200) {
+            var com = JSON.parse(comentAjax.responseText);
+            if (com != 0) {
+                for (var i = 0; i < com.length; i++) {
+                    var c =
+                        " <p>" + com[i].NomUsuario + ": " + com[i].Comentario + "</p>";
+                    document.getElementById('comentarios').innerHTML += c;
 
-                    var c = 
-                    " <p>No hay comentarios disponibles...</p>";
-                     document.getElementById('comentarios').innerHTML += c;
                 }
-                
+            } else {
+
+                var c =
+                    " <p>No hay comentarios disponibles...</p>";
+                document.getElementById('comentarios').innerHTML += c;
             }
 
-        }, 800);
+        }
+
+    }, 800);
 }
 
 
-function comentar(idForo){
+function comentar(idForo) {
     console.log(idForo);
     var coment = document.getElementById('comentario').value;
-    var idUsuario = localStorage.getItem('idUsuario');  
+    var idUsuario = localStorage.getItem('idUsuario');
 
-    if(coment != '' && coment != '   '){
+    if (coment != '' && coment != '   ') {
         var comentAjax = new XMLHttpRequest();
-        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/comentar.php?idForo='+idForo+'&Com='+coment+'&idU='+idUsuario);
+        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/comentar.php?idForo=' + idForo + '&Com=' + coment + '&idU=' + idUsuario);
         comentAjax.send();
-        comentAjax.onreadystatechange = function(){
-            if(comentAjax.readyState == 4 && comentAjax.status == 200){
+        comentAjax.onreadystatechange = function () {
+            if (comentAjax.readyState == 4 && comentAjax.status == 200) {
                 var com = JSON.parse(comentAjax.responseText);
                 console.log(com);
 
             }
         }
-    }else{
+    } else {
         showToast('Completa los campos...');
     }
 }
@@ -711,27 +711,27 @@ function comentar(idForo){
  */
 function verEvento(id) {
 
-     var evAjax = new XMLHttpRequest();
-        evAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEvento.php?idE='+id);
-        evAjax.send();
-        evAjax.onreadystatechange = function(){
+    var evAjax = new XMLHttpRequest();
+    evAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEvento.php?idE=' + id);
+    evAjax.send();
+    evAjax.onreadystatechange = function () {
 
-                if (evAjax.readyState == 4 && evAjax.status == 200){
-                    console.log(JSON.parse(evAjax.responseText));
-                    var ev = JSON.parse(evAjax.responseText);
-                     var eve = "<center><h3>"+ev[0].Nombre+"</h3></center>" +
-                        "<ons-card>" +
-                        "<h4>Fecha:</h4>" +ev[0].Fecha +
-                        "<h4>Descripción:</h4> "+ev[0].Descripcion +
-                        "<h4>Hora:</h4> "+ev[0].Hora+"<br><br>" +
-                        "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
-                        "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='"+ev[0].ruta+"' > </center>" +
-                        "</ons-card>";
-                    document.getElementById('contenido').innerHTML = '';
-                    document.getElementById('contenido').innerHTML = eve;
-                }
-
+        if (evAjax.readyState == 4 && evAjax.status == 200) {
+            console.log(JSON.parse(evAjax.responseText));
+            var ev = JSON.parse(evAjax.responseText);
+            var eve = "<center><h3>" + ev[0].Nombre + "</h3></center>" +
+                "<ons-card>" +
+                "<h4>Fecha:</h4>" + ev[0].Fecha +
+                "<h4>Descripción:</h4> " + ev[0].Descripcion +
+                "<h4>Hora:</h4> " + ev[0].Hora + "<br><br>" +
+                "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
+                "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='" + ev[0].ruta + "' > </center>" +
+                "</ons-card>";
+            document.getElementById('contenido').innerHTML = '';
+            document.getElementById('contenido').innerHTML = eve;
         }
+
+    }
 }
 
 
@@ -744,7 +744,7 @@ function verEvento(id) {
  */
 function nuevoForo() {
 
-    console.log('No me piques we');
+    //console.log('No me piques we');
 
     var nf =
         "<form method='POST' enctype='multipart/form-data '>" +
@@ -754,7 +754,7 @@ function nuevoForo() {
         " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>" +
         "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
-        "<center><label> <img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' > </label><br></center>" +
+        "<center><label><img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' > </label><br></center>" +
         "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
 
         "</ons-card>" +
@@ -770,25 +770,25 @@ function nuevoForo() {
 * Esta función obtiene todos los registros de los horarios de transporte de CU a JURIQUILLA y viceversa, posteriormente
 * los inserta en la tarjeta correspondiente.
 */
-function cargarInfoH(){
-     var horasAjax = new XMLHttpRequest();
-        horasAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getInfoH.php');
-        horasAjax.send();
-        horasAjax.onreadystatechange = function(){
-            if (horasAjax.readyState == 4 && horasAjax.status == 200) {
-                //console.log(JSON.parse(horasAjax.responseText));
-                var hr = JSON.parse(horasAjax.responseText);
-                for(var i = 0 ; i < hr.length ; i++){
-                    var horario = hr[i];
-                    //console.log(horario.Direccion);
-                    if (horario.Direccion == 'JURIQUILLA - CU') {
-                        document.getElementById('horariosCJ').innerHTML += '| '+horario.Hora+' ';
-                    }else{
-                        document.getElementById('horariosJC').innerHTML += '| '+horario.Hora+' ';
-                    }
+function cargarInfoH() {
+    var horasAjax = new XMLHttpRequest();
+    horasAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getInfoH.php');
+    horasAjax.send();
+    horasAjax.onreadystatechange = function () {
+        if (horasAjax.readyState == 4 && horasAjax.status == 200) {
+            //console.log(JSON.parse(horasAjax.responseText));
+            var hr = JSON.parse(horasAjax.responseText);
+            for (var i = 0; i < hr.length; i++) {
+                var horario = hr[i];
+                //console.log(horario.Direccion);
+                if (horario.Direccion == 'JURIQUILLA - CU') {
+                    document.getElementById('horariosCJ').innerHTML += '| ' + horario.Hora + ' ';
+                } else {
+                    document.getElementById('horariosJC').innerHTML += '| ' + horario.Hora + ' ';
                 }
             }
         }
+    }
 
 }
 
@@ -798,27 +798,27 @@ function cargarInfoH(){
 * Esta función obtiene los registros de los tutores en la bd y posteriormente los inserta en la vista de tutores.
 */
 
-function cargarTutores(){
+function cargarTutores() {
     var tutorAjax = new XMLHttpRequest();
-        tutorAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutores.php');
-        tutorAjax.send();
-        tutorAjax.onreadystatechange = function(){
-            if (tutorAjax.readyState == 4 && tutorAjax.status == 200) {
-               // console.log(JSON.parse(tutorAjax.responseText));
-                var tut = JSON.parse(tutorAjax.responseText);
-                for(var i = 0 ; i < tut.length ; i++){
-                    var tutor = tut[i];
-                    //console.log(tutor);
-                    var t = 
-                    "<ons-card onclick='verTutor("+tutor.idTutor+")'>" +
-                    " <span>"+tutor.nombre+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
-                     " </ons-card>";
+    tutorAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutores.php');
+    tutorAjax.send();
+    tutorAjax.onreadystatechange = function () {
+        if (tutorAjax.readyState == 4 && tutorAjax.status == 200) {
+            // console.log(JSON.parse(tutorAjax.responseText));
+            var tut = JSON.parse(tutorAjax.responseText);
+            for (var i = 0; i < tut.length; i++) {
+                var tutor = tut[i];
+                //console.log(tutor);
+                var t =
+                    "<ons-card onclick='verTutor(" + tutor.idTutor + ")'>" +
+                    " <span>" + tutor.nombre + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                    " </ons-card>";
 
-                     document.getElementById('todostutores').innerHTML += t;
-                    
-                }
+                document.getElementById('todostutores').innerHTML += t;
+
             }
         }
+    }
 }
 
 /**
@@ -828,35 +828,35 @@ function cargarTutores(){
 * para becas, servicio social o bolsa de trabajo.
 */
 
-function cargarConvocatorias(){
+function cargarConvocatorias() {
 
     var convAjax = new XMLHttpRequest();
-        convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatorias.php');
-        convAjax.send();
-        convAjax.onreadystatechange = function(){
-            if (convAjax.readyState == 4 && convAjax.status == 200) {
-                var convocatoria = JSON.parse(convAjax.responseText);
+    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatorias.php');
+    convAjax.send();
+    convAjax.onreadystatechange = function () {
+        if (convAjax.readyState == 4 && convAjax.status == 200) {
+            var convocatoria = JSON.parse(convAjax.responseText);
 
-                for(var i = 0 ; i < convocatoria.length ; i++){
-                    console.log(convocatoria[i]);
+            for (var i = 0; i < convocatoria.length; i++) {
+                console.log(convocatoria[i]);
 
-                    var c = 
+                var c =
                     "<!-- Item tarjeta -->" +
-                    "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria("+convocatoria[i].idConvocatoria+")'>" +
-                    "<span>"+convocatoria[i].Nombre+"<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                    "<ons-card style='background: rgba(0,0,0,.02); margin-top: 15px;' onclick='verConvocatoria(" + convocatoria[i].idConvocatoria + ")'>" +
+                    "<span>" + convocatoria[i].Nombre + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
                     "</ons-card>";
 
-                    if(convocatoria[i].TipoConvocatoria == 'Beca'){
-                        document.getElementById('becas').innerHTML += c;
-                    }else if(convocatoria[i].TipoConvocatoria == 'Servicio Social'){
-                          document.getElementById('servicioS').innerHTML += c;
-                    }else if(convocatoria[i].TipoConvocatoria == 'Bolsa de Trabajo'){
-                          document.getElementById('bolsaT').innerHTML += c;
-                    }
-
+                if (convocatoria[i].TipoConvocatoria == 'Beca') {
+                    document.getElementById('becas').innerHTML += c;
+                } else if (convocatoria[i].TipoConvocatoria == 'Servicio Social') {
+                    document.getElementById('servicioS').innerHTML += c;
+                } else if (convocatoria[i].TipoConvocatoria == 'Bolsa de Trabajo') {
+                    document.getElementById('bolsaT').innerHTML += c;
                 }
+
             }
         }
+    }
 }
 
 
