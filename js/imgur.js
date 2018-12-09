@@ -74,9 +74,9 @@
         createDragZone: function () {
             var p1, p2, input;
 
-                p1 = this.createEls('p', {}, 'Drop Image File Here');
-                p2 = this.createEls('p', {}, 'Or click here to select image');
-            input = this.createEls('input', {type: 'file', className: 'input', accept: 'image/*'});
+            p1 = this.createEls('p', {}, 'Selecciona una imagen...');
+            p2 = this.createEls('p', {}, ' ');
+            input = this.createEls('input', { type: 'file', className: 'input', accept: 'image/*' });
 
             Array.prototype.forEach.call(this.info, function (zone) {
                 zone.appendChild(p1);
@@ -91,16 +91,16 @@
         loading: function () {
             var div, table, img;
 
-            div = this.createEls('div', {className: 'loading-modal'});
-            table = this.createEls('table', {className: 'loading-table'});
-            img = this.createEls('img', {className: 'loading-image', src: './css/loading-spin.svg'});
+            div = this.createEls('div', { className: 'loading-modal' });
+            table = this.createEls('table', { className: 'loading-table' });
+            img = this.createEls('img', { className: 'loading-image', src: './css/loading-spin.svg' });
 
             div.appendChild(table);
             table.appendChild(img);
             document.body.appendChild(div);
         },
         status: function (el) {
-            var div = this.createEls('div', {className: 'status'});
+            var div = this.createEls('div', { className: 'status' });
 
             this.insertAfter(el, div);
         },
@@ -161,6 +161,5 @@
             this.createDragZone();
         }
     };
-
     return Imgur;
 }));

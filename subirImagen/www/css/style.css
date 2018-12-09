@@ -14,7 +14,7 @@ body.loading .loading-modal {
 
 .dropzone {
     border: 4px dashed #ccc;
-    height: 200px;
+    height: 50px;
     position: relative;
     margin-right: auto;
     margin-left: auto;
@@ -38,7 +38,7 @@ body.loading .loading-modal {
     left: 0;
     outline: 0;
     opacity: 0;
-    position: absolute;
+    position: relative;
     top: 0;
     width: 100%
 }

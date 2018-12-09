@@ -1,7 +1,7 @@
 var feedback = function(res) {
     if (res.success === true) {
         var get_link = res.data.link.replace(/^http:\/\//i, 'https://');
-		alert(get_link);
+		document.getElementById('imagenURL').value = get_link;
     }
 };
 

@@ -310,22 +310,22 @@ var showToast = function (msj) {
  * Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página para enviar un reporte.
  */
 function reporte() {
-    var reporte =
-        " <form method='POST' enctype='multipart/form-data '>" +
-        " <ons-card style='height: 95%;'>" +
+    // var reporte =
+    //     " <form method='POST' enctype='multipart/form-data '>" +
+    //     " <ons-card style='height: 95%;'>" +
 
+    //     "Título: <ons-input id='tituloReporte' modifier='underbar' placeholder='' float></ons-input><br><br>" +
+    //     "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
-        " Título: <ons-input id='tituloReporte' modifier='underbar' placeholder='' float></ons-input><br><br>" +
-        "Descripción: <br> <br> <textarea style='font-size:15px;border:solid rgb(150, 99, 99); width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
+    //     "<input type='text' id='urlImg' hidden>" +
+    //     "<center><label><ons-button onclick='upReporte()' modifier='large' style='background-color:red;'>Enviar reporte</ons-button> </label> </center>" +
 
-        "<label> <div class='dropzone'><div class='info'></div></div> </label><br>" +
-        "<input type='text' id='urlImg' hidden>" +
-        " <center><label><ons-button onclick='upReporte()' modifier='large' style='background-color:red;'>Enviar Reporte</ons-button> </label> </center>" +
-
-        "</ons-card>" +
-        " </form>";
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = reporte;
+    //     "</ons-card>" +
+    //     "</form>" +
+    //     "<div class='dropzone'><div class='info'></div></div>";
+    // document.getElementById('contenido').innerHTML = '';
+    // document.getElementById('contenido').innerHTML = reporte;
+    window.location.href = 'reporte.html';
 }
 /*
 Esta funcion se encarga de quitar el contenido del div con id 'contenido' y cambiarlo por el contenido de la página de convocatorias.
