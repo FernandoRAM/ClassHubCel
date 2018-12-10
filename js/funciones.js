@@ -443,7 +443,7 @@ function foro() {
         "<!-- Lista de discusiones de usuario -->" +
 
         "<center ><h4>Mis discusiones</h4></center>" +
-        "<div id='user'><center>No hay registros</center></div>" +
+        "<div id='user'></div>" +
         "<ons-fab position='bottom right'  style='bottom: 60px;' onclick='nuevoForo()'> " +
         " <ons-icon icon='md-plus'></ons-icon> " +
         " </ons-fab>" +
@@ -472,16 +472,17 @@ function getForos() {
     foroAjax.onreadystatechange = function () {
         if (foroAjax.readyState == 4 && foroAjax.status == 200) {
             var f = JSON.parse(foroAjax.responseText);
+            console.log(f);
             for (var i = 0; i < f.length; i++) {
-                console.log(f);
+                //console.log(f);
                 var item = "<ons-card onclick='verDiscusion(" + f[i].idForo + ")'>" +
                     "<span >" + f[i].titulo + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
                     " </ons-card>";
                 if (f[i].idUsuario == idU) {
-                    document.getElementById('user').innerHTML = '';
+                    //document.getElementById('user').innerHTML = '';
                     document.getElementById('user').innerHTML += item;
                 } else {
-                    document.getElementById('todos').innerHTML = '';
+                    //document.getElementById('todos').innerHTML = '';
                     document.getElementById('todos').innerHTML += item;
                 }
 
@@ -626,14 +627,14 @@ function verDiscusion(id) {
     discAjax.onreadystatechange = function () {
 
         if (discAjax.readyState == 4 && discAjax.status == 200) {
-            //console.log(JSON.parse(discAjax.responseText));
+            //console.log(discAjax.responseText);
             var dis = JSON.parse(discAjax.responseText);
 
             var disc = " <ons-card style='height: 85%; margin-top: 15px; overflow-y: scroll;'>" +
-                "<center><h3>" + dis[0].Titulo + "</h3> </center>" +
+                "<center><h3>" + dis[0].titulo + "</h3> </center>" +
                 "<p>" + dis[0].Descripcion + "</p>" +
                 " <center>" +
-                " <img src='" + dis[0].ruta + "' style='width: 300px !important;'>" +
+                " <img src='" + 'http://' + dis[0].ruta + "' style='width: 300px !important;' alt=''>" +
                 " </center>" +
                 " <h4>Comentarios:</h4>" +
                 " <div id='comentarios'></div>" +
