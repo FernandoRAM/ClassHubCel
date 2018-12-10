@@ -728,7 +728,7 @@ function verEvento(id) {
                 "<h4>Fecha:</h4>" + ev[0].Fecha +
                 "<h4>Descripción:</h4> " + ev[0].Descripcion +
                 "<h4>Hora:</h4> " + ev[0].Hora + "<br><br>" +
-                "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='" + ev[0].ruta + "' > </center>" +
+                "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='" + 'http://' + ev[0].ruta + "' > </center>" +
                 "</ons-card>";
             document.getElementById('contenido').innerHTML = '';
             document.getElementById('contenido').innerHTML = eve;

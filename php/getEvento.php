@@ -7,7 +7,7 @@ $conexion->set_charset("utf8");
 
 $id = $_GET['idE'];
 
-$select = "SELECT * FROM eventosimportantes WHERE idEvento = '$id'";
+$select = "SELECT ev.idEvento, ev.Nombre, ev.Fecha, ev.Hora, ev.Descripcion, ev.idImagen, im.idImagen, im.ruta FROM eventosimportantes ev,imagenes im  WHERE ev.idEvento = '$id' AND ev.idImagen = im.idImagen;";
 $result = $conexion->query($select);
 
 if($result->num_rows > 0) {
