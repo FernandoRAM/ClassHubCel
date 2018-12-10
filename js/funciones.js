@@ -254,39 +254,18 @@ function upReporte() {
  */
 
 function upForo() {
-
-    var titulo = document.getElementById('tituloForo').value;
-    var desc = document.getElementById('descripcion').value;
-    var idU = localStorage.getItem('idUsuario');
-
-    if (titulo != '' && desc != '') {
-
-        loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoForo.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU);
-        loginAjax.send();
-        loginAjax.onreadystatechange = function () {
-            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
-
-                var respuesta = loginAjax.responseText;
-                alert(loginAjax.status);
-
-                if (respuesta == '1') {
-                    alert('Discusión publicada exitosamente!');
-                    window.location.assign('inicio.html');
-
-                } else {
-                    titulo = '';
-                    desc = '';
-                    alert(login.responseText);
-                }
-            } else {
-                //alert(loginAjax.status);
-            }
+    var formData1 = new FormData($('#formUpForo')[0]);
+    $.ajax({
+        type: "POST",
+        url: "http://classhub2.000webhostapp.com/php/App/nuevoForo.php",
+        data: formData1,
+        contentType: false,
+        processData: false,
+        success: function (r) {
+            alert('Discución agregada con éxito...');
+            window.location.href = 'inicio.html';
         }
-    } else {
-        showToast('Completa los campos...');
-    }
-
+    });
 }
 
 
