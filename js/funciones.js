@@ -561,12 +561,12 @@ function verConvocatoria(id) {
             //console.log(c);
             var conv =
 
-                "<ons-card style='height: 95%; margin-top: 15px;'>" +
+                "<ons-card style='height: 95%; margin-top: 15px; overflow-y:scroll'>" +
                 " <center><h3>" + c[0].Nombre + "</h3> " +
                 "<p>" + c[0].Descripcion + "</p>" +
                 " </center>" +
                 "<center> " +
-                " <img src='" + c[0].ruta + "' style='width: 300px !important;'> " +
+                " <img src='" + 'http://' + c[0].ruta + "' style='width: 300px !important;'> " +
                 " </center>" +
                 "</ons-card> ";
 
@@ -699,6 +699,7 @@ function comentar(idForo) {
                 var com = JSON.parse(comentAjax.responseText);
                 document.getElementById('comentarios').innerHTML = '';
                 showToast('Comentario publicado exitosamente...');
+                document.getElementById('comentario').value = '';
                 cargarComentarios(idForo);
 
             }
