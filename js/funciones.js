@@ -685,7 +685,7 @@ function cargarComentarios(id) {
 
 
 function comentar(idForo) {
-    console.log(idForo);
+    
     var coment = document.getElementById('comentario').value;
     var idUsuario = localStorage.getItem('idUsuario');
 
@@ -696,6 +696,8 @@ function comentar(idForo) {
         comentAjax.onreadystatechange = function () {
             if (comentAjax.readyState == 4 && comentAjax.status == 200) {
                 var com = JSON.parse(comentAjax.responseText);
+                document.getElementById('comentarios').innerHTML = '';
+                showToast('Comentario publicado exitosamente...');
                 cargarComentarios(idForo);
 
             }
