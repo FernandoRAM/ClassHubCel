@@ -47,7 +47,7 @@ function login() {
 
     if (exp != '' && pass != '') {
         loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/login.php?expediente=' + exp + '&pass=' + pre_hash(pass));
         loginAjax.send();
         loginAjax.onreadystatechange = function () {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
@@ -223,7 +223,7 @@ function upReporte() {
 
     if (desc != '' && idU != '') {
         reporteAjax = new XMLHttpRequest();
-        reporteAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoReporte.php?descripcion=' + desc + '&idU=' + idU + '&tituloR=' + tituloR + '&fecha=' + fecha);
+        reporteAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoReporte.php?descripcion=' + desc + '&idU=' + idU + '&tituloR=' + tituloR + '&fecha=' + fecha);
         reporteAjax.send();
         reporteAjax.onreadystatechange = function () {
             if (reporteAjax.readyState == 4 && reporteAjax.status == 200) {
@@ -262,7 +262,7 @@ function upForo() {
     if (titulo != '' && desc != '') {
 
         loginAjax = new XMLHttpRequest();
-        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/nuevoForo.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU);
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoForo.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU);
         loginAjax.send();
         loginAjax.onreadystatechange = function () {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
@@ -466,15 +466,16 @@ function foro() {
 function getForos() {
     var idU = localStorage.getItem('idUsuario');
     var foroAjax = new XMLHttpRequest();
-    foroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getForos.php');
+    foroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getForos.php');
     foroAjax.send();
 
     foroAjax.onreadystatechange = function () {
         if (foroAjax.readyState == 4 && foroAjax.status == 200) {
             var f = JSON.parse(foroAjax.responseText);
             for (var i = 0; i < f.length; i++) {
+                console.log(f);
                 var item = "<ons-card onclick='verDiscusion(" + f[i].idForo + ")'>" +
-                    "<span >" + f[i].Titulo + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
+                    "<span >" + f[i].titulo + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
                     " </ons-card>";
                 if (f[i].idUsuario == idU) {
                     document.getElementById('user').innerHTML = '';
@@ -514,7 +515,7 @@ function calendario() {
 function cargarEventos() {
 
     var eventoAjax = new XMLHttpRequest();
-    eventoAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEventos.php');
+    eventoAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getEventos.php');
     eventoAjax.send();
 
     eventoAjax.onreadystatechange = function () {
@@ -550,7 +551,7 @@ function cargarEventos() {
 function verConvocatoria(id) {
 
     var convAjax = new XMLHttpRequest();
-    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatoria.php?idCon=' + id);
+    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getConvocatoria.php?idCon=' + id);
     convAjax.send();
     convAjax.onreadystatechange = function () {
 
@@ -586,7 +587,7 @@ function verConvocatoria(id) {
 function verTutor(id) {
 
     var tutAjax = new XMLHttpRequest();
-    tutAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutor.php?idT=' + id);
+    tutAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getTutor.php?idT=' + id);
     tutAjax.send();
     tutAjax.onreadystatechange = function () {
         if (tutAjax.readyState == 4 && tutAjax.status == 200) {
@@ -620,7 +621,7 @@ function verTutor(id) {
  */
 function verDiscusion(id) {
     var discAjax = new XMLHttpRequest();
-    discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getDiscusion.php?idF=' + id);
+    discAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getDiscusion.php?idF=' + id);
     discAjax.send();
     discAjax.onreadystatechange = function () {
 
@@ -656,12 +657,13 @@ function verDiscusion(id) {
  */
 function cargarComentarios(id) {
     var comentAjax = new XMLHttpRequest();
-    comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getComentarios.php?idCom=' + id);
+    comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getComentarios.php?idCom=' + id);
     comentAjax.send();
     comentAjax.onreadystatechange = setTimeout(function () {
 
         if (comentAjax.readyState == 4 && comentAjax.status == 200) {
             var com = JSON.parse(comentAjax.responseText);
+            console.log(com);
             if (com != 0) {
                 for (var i = 0; i < com.length; i++) {
                     var c =
@@ -689,12 +691,12 @@ function comentar(idForo) {
 
     if (coment != '' && coment != '   ') {
         var comentAjax = new XMLHttpRequest();
-        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/comentar.php?idForo=' + idForo + '&Com=' + coment + '&idU=' + idUsuario);
+        comentAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/comentar.php?idForo=' + idForo + '&Com=' + coment + '&idU=' + idUsuario);
         comentAjax.send();
         comentAjax.onreadystatechange = function () {
             if (comentAjax.readyState == 4 && comentAjax.status == 200) {
                 var com = JSON.parse(comentAjax.responseText);
-                console.log(com);
+                cargarComentarios(idForo);
 
             }
         }
@@ -712,7 +714,7 @@ function comentar(idForo) {
 function verEvento(id) {
 
     var evAjax = new XMLHttpRequest();
-    evAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getEvento.php?idE=' + id);
+    evAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getEvento.php?idE=' + id);
     evAjax.send();
     evAjax.onreadystatechange = function () {
 
@@ -724,7 +726,6 @@ function verEvento(id) {
                 "<h4>Fecha:</h4>" + ev[0].Fecha +
                 "<h4>Descripción:</h4> " + ev[0].Descripcion +
                 "<h4>Hora:</h4> " + ev[0].Hora + "<br><br>" +
-                "<a href='https://www.uaq.mx/informatica/descargas/CRT_2018.pdf'>https://www.uaq.mx/informatica/descargas/CRT_2018.pdf</a>" +
                 "<center> <img style='width:100%;height:100%;' id='imagenConvocatoria' src='" + ev[0].ruta + "' > </center>" +
                 "</ons-card>";
             document.getElementById('contenido').innerHTML = '';
@@ -772,7 +773,7 @@ function nuevoForo() {
 */
 function cargarInfoH() {
     var horasAjax = new XMLHttpRequest();
-    horasAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getInfoH.php');
+    horasAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getInfoH.php');
     horasAjax.send();
     horasAjax.onreadystatechange = function () {
         if (horasAjax.readyState == 4 && horasAjax.status == 200) {
@@ -800,7 +801,7 @@ function cargarInfoH() {
 
 function cargarTutores() {
     var tutorAjax = new XMLHttpRequest();
-    tutorAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getTutores.php');
+    tutorAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getTutores.php');
     tutorAjax.send();
     tutorAjax.onreadystatechange = function () {
         if (tutorAjax.readyState == 4 && tutorAjax.status == 200) {
@@ -831,7 +832,7 @@ function cargarTutores() {
 function cargarConvocatorias() {
 
     var convAjax = new XMLHttpRequest();
-    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/getConvocatorias.php');
+    convAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/getConvocatorias.php');
     convAjax.send();
     convAjax.onreadystatechange = function () {
         if (convAjax.readyState == 4 && convAjax.status == 200) {
@@ -846,7 +847,7 @@ function cargarConvocatorias() {
                     "<span>" + convocatoria[i].Nombre + "<i class='zmdi zmdi-chevron-right zmdi-hc-lg' style='float:right;'></i></span> " +
                     "</ons-card>";
 
-                if (convocatoria[i].TipoConvocatoria == 'Beca') {
+                if (convocatoria[i].TipoConvocatoria == 'Becas') {
                     document.getElementById('becas').innerHTML += c;
                 } else if (convocatoria[i].TipoConvocatoria == 'Servicio Social') {
                     document.getElementById('servicioS').innerHTML += c;
