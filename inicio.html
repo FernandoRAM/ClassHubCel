@@ -70,78 +70,12 @@
                     <!-- Item tarjeta -->
                     <center>
                         <h4>Horarios de Clases</h4>
-                        <ons-search-input placeholder="Busca tu clase..."></ons-search-input>
+                        <ons-search-input placeholder="Busca tu clase..." onchange="buscarClase(this.value)"></ons-search-input>
                         <br><br>
 
                         <div id="clasesBuscadas">
-
-                            <!-- Item de clase con su Horario -->
-                            <ons-card class="clase">
-
-                                <p id="nombreClase">Dispositivos lógicos</p>
-                                <p id="nombreProf">Profesor: Fausto Abraham Jacques García </p>
-                                <p id="numeroGrupo">Grupo: 70</p>
-
-                                <table class="tg">
-                                    <tr>
-                                        <th class="tg-0lax"></th>
-                                        <th class="tg-0lax">Lunes</th>
-                                        <th class="tg-0lax">Martes</th>
-                                        <th class="tg-0lax">Miércoles</th>
-                                        <th class="tg-0lax">Jueves</th>
-                                        <th class="tg-0lax">Viernes</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">7:00 - 9:00</td>
-                                        <td class="tg-0lax" id="L1"></td>
-                                        <td class="tg-0lax" id="M1"></td>
-                                        <td class="tg-0lax" id="Mi1"></td>
-                                        <td class="tg-0lax" id="J1"></td>
-                                        <td class="tg-0lax" id="V1"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">9:00 - 11:00</td>
-                                        <td class="tg-0lax" id="L2"></td>
-                                        <td class="tg-0lax" id="M2"></td>
-                                        <td class="tg-0lax" id="Mi2"></td>
-                                        <td class="tg-0lax" id="J2"></td>
-                                        <td class="tg-0lax" id="V2"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">11:00 - 13:00</td>
-                                        <td class="tg-0lax" id="L3"></td>
-                                        <td class="tg-0lax" id="M3"></td>
-                                        <td class="tg-0lax" id="Mi3"></td>
-                                        <td class="tg-0lax" id="J3"></td>
-                                        <td class="tg-0lax" id="V3"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">13:00 - 15:00</td>
-                                        <td class="tg-0lax" id="L4"></td>
-                                        <td class="tg-0lax" id="M4"></td>
-                                        <td class="tg-0lax" id="Mi4"></td>
-                                        <td class="tg-0lax" id="J4"></td>
-                                        <td class="tg-0lax" id="V4"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">15:00 - 17:00</td>
-                                        <td class="tg-0lax" id="L5"></td>
-                                        <td class="tg-0lax" id="M5"></td>
-                                        <td class="tg-0lax" id="Mi5"></td>
-                                        <td class="tg-0lax" id="J5"></td>
-                                        <td class="tg-0lax" id="V5"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tg-0lax">17:00 - 19:00</td>
-                                        <td class="tg-0lax" id="L6"></td>
-                                        <td class="tg-0lax" id="M6"></td>
-                                        <td class="tg-0lax" id="Mi6"></td>
-                                        <td class="tg-0lax" id="J6"></td>
-                                        <td class="tg-0lax" id="V6"></td>
-                                    </tr>
-                                </table>
-
-                            </ons-card>
+                           
+                            
                         </div>
                     </center>
                 </ons-card>

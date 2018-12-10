@@ -382,7 +382,7 @@ function horarios() {
         " <!-- Item Carrusel (Transporte)-->" +
         "<ons-carousel-item>" +
         "<ons-card style='height: 95%; margin-top: 15px;'>" +
-        "<center><h4>Horarios de transporte</h4></center>" +
+        "<center><h4>Horarios de Transporte</h4></center>" +
         "<!-- Item tarjeta -->" +
         "<ons-card style='height: 30%; background: rgba(0,0,0,.02); margin-top: 30px;'>" +
         "<center>Juriquilla - CU</center>" +
@@ -403,10 +403,10 @@ function horarios() {
 
         " <!-- Item Carrusel (Clases) -->" +
         "<ons-carousel-item>" +
-        "<ons-card style='height: 95%; margin-top: 15px;'>" +
+        "<ons-card style='height: 95%; margin-top: 15px;overflow-y: scroll;'>" +
         "<!-- Item tarjeta -->" +
         " <center><h4>Horarios de Clases</h4>" +
-        " <ons-search-input placeholder='Busca tu clase...'></ons-search-input><br><br>" +
+        " <ons-search-input placeholder='Busca tu clase...' onchange='buscarClase(this.value)'></ons-search-input><br><br>" +
         "<div id='clasesBuscadas'>" +
 
         "</div>" +
@@ -597,7 +597,7 @@ function verTutor(id) {
 
             var tut =
                 "<ons-card style='height: 95%; margin-top: 15px;'>" +
-                "<center><img src='" + t[0].ruta + "' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
+                "<center><img src='"+'http://'+t[0].ruta + "' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
                 "<h4>" + t[0].nombre + "</h4><br></center>" +
                 "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
                 " <p>Correo: " + t[0].correo + "</p>" +
@@ -860,42 +860,52 @@ function cargarConvocatorias() {
     }
 }
 
+function buscarClase(val){
+    document.getElementById('clasesBuscadas').innerHTML = '';
+    var claseAjax = new XMLHttpRequest();
+    claseAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/buscar.php?valor='+val);
+    claseAjax.send();
+    claseAjax.onreadystatechange = function(){
+        if(claseAjax.readyState == 4 && claseAjax.status == 200){
+            var clas = JSON.parse(claseAjax.responseText);
+            console.log(clas);
 
-function subImg() {
-    const url = 'php/upload.php';
-    const form = document.querySelector('form');
+            for(var i = 0 ; i < clas.length; i++){
+                var c = "";
+                if(clas[i].dias == 1){
+                     c = " <ons-card>"+
+                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
+                                "<b>Dias:</b> Lunes y Miércoles <br><br>"+
+                                "<b>Horario:</b> " +clas[i].horaInicio+" - "+ clas[i].horaFin+ "<br><br>"+
+                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+"  <br><br>"+
+                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
+                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
+                           " </ons-card>";
+                }
+                if(clas[i].dias == 2){
+                    c = " <ons-card>"+
+                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
+                                "<b>Dias:</b> Martes y Jueves <br><br>"+
+                                "<b>Horario:</b> "+clas[i].horaInicio+" - "+ clas[i].horaFin+ "<br><br>"+
+                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+"<br><br>"+
+                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
+                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
+                           " </ons-card>";
+                }
+                if(clas[i].dias == 3){
+                     c = " <ons-card>"+
+                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
+                                "<b>Dias:</b> Viernes <br><br>"+
+                                "<b>Horario:</b> "+clas[i].horaInicio+" - "+ clas[i].horaFin+" <br><br>"+
+                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+" <br><br>"+
+                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
+                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
+                           " </ons-card>";
+                }
+                document.getElementById('clasesBuscadas').innerHTML += c ;
 
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-
-        const files = document.querySelector('[type=file]').files;
-        const formData = new FormData();
-
-        for (let i = 0; i < files.length; i++) {
-            let file = files[i];
-
-            formData.append('files[]', file);
-        }
-        var oReq = new XMLHttpRequest();
-        oReq.open("POST", "php/upload.php", true);
-        oReq.onload = function () {
-            if (oReq.status == 200) {
-                alert("jalo");
-                alert(oReq.responseText);
-            } else {
-                alert("no jalo");
+                
             }
-        };
-        oReq.send(formData);
-        // fetch(url, {
-        //     method: 'POST',
-        //     body: formData
-        // }).then(response => {
-        //     alert(response.status);
-        //     if(response.status == 200){
-        //       alert("jalo");
-        //     }
-        // });
-    });
+        }
+    }
 }
-
