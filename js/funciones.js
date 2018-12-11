@@ -215,11 +215,10 @@ function pre_hash(str) {
 * 
 */
 function upReporte() {
-    var desc = document.getElementById('descripcion').value;
-    var tituloR = document.getElementById('tituloReporte').value;
+    var desc = localStorage.getItem('descripcionReporte');
+    var tituloR = localStorage.getItem('tituloReporte');
     var idU = localStorage.getItem('idUsuario');
     var fecha = new Date().toJSON().slice(0, 10);
-
 
     if (desc != '' && idU != '') {
         reporteAjax = new XMLHttpRequest();
@@ -244,6 +243,38 @@ function upReporte() {
         showToast('Completa los campos...');
     }
 }
+
+function upReporte2() {
+    var desc = localStorage.getItem('descripcionReporte');
+    var tituloR = localStorage.getItem('tituloReporte');
+    var idU = localStorage.getItem('idUsuario');
+    var r = localStorage.getItem('imagenURL');
+    var fecha = new Date().toJSON().slice(0, 10);
+
+    if (desc != '' && idU != '') {
+        reporteAjax = new XMLHttpRequest();
+        reporteAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoReporte2.php?descripcion=' + desc + '&idU=' + idU + '&tituloR=' + tituloR + '&fecha=' + fecha + '&r=' + r);
+        reporteAjax.send();
+        reporteAjax.onreadystatechange = function () {
+            if (reporteAjax.readyState == 4 && reporteAjax.status == 200) {
+                var response = reporteAjax.responseText;
+
+                if (response == '1') {
+                    alert('¡Reporte enviado exitosamente!');
+                    window.location.assign('inicio.html');
+                }
+                else {
+                    showToast('Error inesperado intentalo más tarde...');
+                    window.location.assign('inicio.html');
+                }
+            }
+        }
+
+    } else {
+        showToast('Completa los campos...');
+    }
+}
+
 /**
  * Función: upForo()
  * @author: Fernando Rincón
@@ -254,18 +285,74 @@ function upReporte() {
  */
 
 function upForo() {
-    var formData1 = new FormData($('#formUpForo')[0]);
-    $.ajax({
-        type: "POST",
-        url: "http://classhub2.000webhostapp.com/php/App/nuevoForo.php",
-        data: formData1,
-        contentType: false,
-        processData: false,
-        success: function (r) {
-            alert('Discución agregada con éxito...');
-            window.location.href = 'inicio.html';
+    var titulo = localStorage.getItem('tituloForo');
+    var desc = localStorage.getItem('descripcionForo');
+    var idU = localStorage.getItem('idUsuario');
+
+    if (titulo != '' && desc != '') {
+
+        loginAjax = new XMLHttpRequest();
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoForo.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU);
+        loginAjax.send();
+        loginAjax.onreadystatechange = function () {
+            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+
+                var respuesta = loginAjax.responseText;
+                alert(loginAjax.status);
+
+                if (respuesta == '1') {
+                    alert('¡Discusión publicada exitosamente!');
+                    window.location.assign('inicio.html');
+
+                } else {
+                    titulo = '';
+                    desc = '';
+                    alert(login.responseText);
+                }
+            } else {
+                //alert(loginAjax.status);
+            }
         }
-    });
+    } else {
+        showToast('Completa los campos...');
+    }
+}
+
+function upForo2() {
+
+    var titulo = localStorage.getItem('tituloForo');
+    var desc = localStorage.getItem('descripcionForo');
+    var idU = localStorage.getItem('idUsuario');
+    var imgURL = localStorage.getItem('imagenURL');
+
+    if (titulo != '' && desc != '') {
+
+        loginAjax = new XMLHttpRequest();
+        loginAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/nuevoForo2.php?titulo=' + titulo + '&desc=' + desc + '&idU=' + idU + '&imgURL=' + imgURL);
+        loginAjax.send();
+        loginAjax.onreadystatechange = function () {
+            if (loginAjax.readyState == 4 && loginAjax.status == 200) {
+
+                var respuesta = loginAjax.responseText;
+                alert(loginAjax.status);
+
+                if (respuesta == '1') {
+                    alert('¡Discusión publicada exitosamente!');
+                    window.location.assign('inicio.html');
+
+                } else {
+                    titulo = '';
+                    desc = '';
+                    alert(login.responseText);
+                }
+            } else {
+                //alert(loginAjax.status);
+            }
+        }
+    } else {
+        showToast('Completa los campos...');
+    }
+
 }
 
 
@@ -417,7 +504,6 @@ Esta funcion se encarga de quitar el contenido del div con id 'contenido' y camb
 */
 
 function foro() {
-
     var foro =
         "<!-- Lista de discusiones de usuario -->" +
 
@@ -577,7 +663,7 @@ function verTutor(id) {
 
             var tut =
                 "<ons-card style='height: 95%; margin-top: 15px;'>" +
-                "<center><img src='"+'http://'+t[0].ruta + "' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
+                "<center><img src='" + 'http://' + t[0].ruta + "' style='border-radius: 100px; max-width: 120px; max-height: 120px;'> <br>" +
                 "<h4>" + t[0].nombre + "</h4><br></center>" +
                 "<ons-card style='height: 45%; margin-top: 15px; background-color:rgba(0,0,0,.1);'>" +
                 " <p>Correo: " + t[0].correo + "</p>" +
@@ -613,7 +699,7 @@ function verDiscusion(id) {
                 "<center><h3>" + dis[0].titulo + "</h3> </center>" +
                 "<p>" + dis[0].Descripcion + "</p>" +
                 " <center>" +
-                " <img src='" + 'http://' + dis[0].ruta + "' style='width: 300px !important;' alt=''>" +
+                " <img src='" +  dis[0].ruta + "' style='width: 80% !important;' alt=''>" +
                 " </center>" +
                 " <h4>Comentarios:</h4>" +
                 " <div id='comentarios'></div>" +
@@ -665,7 +751,7 @@ function cargarComentarios(id) {
 
 
 function comentar(idForo) {
-    
+
     var coment = document.getElementById('comentario').value;
     var idUsuario = localStorage.getItem('idUsuario');
 
@@ -727,25 +813,25 @@ function verEvento(id) {
  *@author Fernando Rincon
  */
 function nuevoForo() {
-
+    window.location = 'foro2.html';
     //console.log('No me piques we');
 
-    var nf =
-        "<form method='POST' enctype='multipart/form-data' id='formUpForo'>" +
-        "<ons-card style='height: 95%;'>" +
+    // var nf =
+    //     "<form method='POST' enctype='multipart/form-data' id='formUpForo'>" +
+    //     "<ons-card style='height: 95%;'>" +
 
 
-        " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' name='titulo' float></ons-input><br><br>" +
-        "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
+    //     " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' name='titulo' float></ons-input><br><br>" +
+    //     "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
-        "<center><label><img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUploadN' id='fileToUpload' style='display: none;'></label><br></center>" +
-        "<input type='text' value='"+ localStorage.getItem('idUsuario') + "' name='usuario'>" +
-        "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
-        "</ons-card>" +
-        "</form>";
+    //     "<center><label><img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUploadN' id='fileToUpload' style='display: none;'></label><br></center>" +
+    //     "<input type='text' value='" + localStorage.getItem('idUsuario') + "' name='usuario'>" +
+    //     "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
+    //     "</ons-card>" +
+    //     "</form>";
 
-    document.getElementById('contenido').innerHTML = '';
-    document.getElementById('contenido').innerHTML = nf;
+    // document.getElementById('contenido').innerHTML = '';
+    // document.getElementById('contenido').innerHTML = nf;
 }
 
 /**
@@ -843,77 +929,99 @@ function cargarConvocatorias() {
     }
 }
 
-function buscarClase(val){
+function buscarClase(val) {
     document.getElementById('clasesBuscadas').innerHTML = '';
     var claseAjax = new XMLHttpRequest();
-    claseAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/buscar.php?valor='+val);
+    claseAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/buscar.php?valor=' + val);
     claseAjax.send();
-    claseAjax.onreadystatechange = function(){
-        if(claseAjax.readyState == 4 && claseAjax.status == 200){
+    claseAjax.onreadystatechange = function () {
+        if (claseAjax.readyState == 4 && claseAjax.status == 200) {
             var clas = JSON.parse(claseAjax.responseText);
             console.log(clas);
 
-            for(var i = 0 ; i < clas.length; i++){
+            for (var i = 0; i < clas.length; i++) {
                 var c = "";
-                if(clas[i].dias == 1){
-                     c = " <ons-card>"+
-                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
-                                "<b>Dias:</b> Lunes y Miércoles <br><br>"+
-                                "<b>Horario:</b> " +clas[i].horaInicio+" - "+ clas[i].horaFin+ "<br><br>"+
-                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+"  <br><br>"+
-                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
-                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
-                           " </ons-card>";
+                if (clas[i].dias == 1) {
+                    c = " <ons-card>" +
+                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                        "<b>Dias:</b> Lunes y Miércoles <br><br>" +
+                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
+                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "  <br><br>" +
+                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                        " </ons-card>";
                 }
-                if(clas[i].dias == 2){
-                    c = " <ons-card>"+
-                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
-                                "<b>Dias:</b> Martes y Jueves <br><br>"+
-                                "<b>Horario:</b> "+clas[i].horaInicio+" - "+ clas[i].horaFin+ "<br><br>"+
-                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+"<br><br>"+
-                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
-                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
-                           " </ons-card>";
+                if (clas[i].dias == 2) {
+                    c = " <ons-card>" +
+                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                        "<b>Dias:</b> Martes y Jueves <br><br>" +
+                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
+                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "<br><br>" +
+                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                        " </ons-card>";
                 }
-                if(clas[i].dias == 3){
-                     c = " <ons-card>"+
-                                "<b>Materia:</b> "+clas[i].nombre+" <br><br>"+
-                                "<b>Dias:</b> Viernes <br><br>"+
-                                "<b>Horario:</b> "+clas[i].horaInicio+" - "+ clas[i].horaFin+" <br><br>"+
-                                "<b>Aula(s):</b> " +clas[i].edificio+clas[i].numero+' - '+clas[i].salon2+" <br><br>"+
-                                "<b>Profesor:</b> "+clas[i].nombreProfesor+" <br><br>"+
-                                "<b>Grupo:</b> "+clas[i].grupo+" <br><br>"+
-                           " </ons-card>";
+                if (clas[i].dias == 3) {
+                    c = " <ons-card>" +
+                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                        "<b>Dias:</b> Viernes <br><br>" +
+                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + " <br><br>" +
+                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + " <br><br>" +
+                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                        " </ons-card>";
                 }
-                document.getElementById('clasesBuscadas').innerHTML += c ;
+                document.getElementById('clasesBuscadas').innerHTML += c;
 
-                
+
             }
         }
     }
 }
 
-function registrar(){
+function registrar() {
     var exp = document.getElementById('expediente').value;
     var contr = document.getElementById('pass').value;
     var nom = document.getElementById('nombre').value;
     console.log(contr);
-    if(exp.trim() != '' && contr.trim() != '' && nom.trim() != '' ){
+    if (exp.trim() != '' && contr.trim() != '' && nom.trim() != '') {
         var registroAjax = new XMLHttpRequest();
-        registroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/registrar.php?exp='+exp+'&pass='+pre_hash(contr)+'&nombre='+nom);
+        registroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/registrar.php?exp=' + exp + '&pass=' + pre_hash(contr) + '&nombre=' + nom);
         registroAjax.send();
-        registroAjax.onreadystatechange = function(){
-            if(registroAjax.readyState == 4 && registroAjax.status == 200){
+        registroAjax.onreadystatechange = function () {
+            if (registroAjax.readyState == 4 && registroAjax.status == 200) {
                 var res = registroAjax.responseText;
                 //console.log(res);
-                if(res == 1){
+                if (res == 1) {
                     location.href = 'index.html';
-                }else{
+                } else {
                     showToast('Error insesperado, intentalo de nuevo...');
                 }
-                
-                
+
+
             }
         }
     }
+}
+
+function saveForo() {
+    localStorage.tituloForo = document.getElementById('tituloForo').value;
+    localStorage.descripcionForo = document.getElementById('descripcion').value;
+    window.location = 'imagenForo.html';
+}
+
+function sinImagen() {
+    localStorage.imagenURL = '';
+    upForo();
+}
+
+function saveReporte() {
+    localStorage.tituloReporte = document.getElementById('tituloReporte').value;
+    localStorage.descripcionReporte = document.getElementById('descripcionReporte').value;
+    window.location = 'imagenReporte.html';
+}
+
+function sinImagenReporte() {
+    localStorage.imagenURL = '';
+    upReporte();
 }

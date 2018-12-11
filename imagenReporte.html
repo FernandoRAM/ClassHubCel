@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="./css/style.css" rel="stylesheet" media="screen">
+    <link href="./css/mobile-style.css" rel="stylesheet" media="screen">
+    <script src="js/funciones.js"></script>
+    <title>Imagen reporte</title>
+</head>
+
+<body>
+    <br><br>
+    <center>
+        <h3>¿Deseas agregar una imagen?</h3>
+        <br><br>
+        <div class='dropzone'>
+            <div class='info'></div>
+        </div>
+        <br>
+        <center><img src="" alt="" id="imagenURL" style="width:95%"></center>
+        <br>
+        <button class="btn btn-primary" style="width:95%" onclick="sinImagenReporte()">No quiero agregar imagen</button>
+        <br><br>
+    </center>
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/imgur2.js"></script>
+    <script src="js/upload2.js"></script>
+    <script>
+        // Funcion verificaSesion() al inicializar la ventana
+        window.addEventListener('load', verificaSesion, true);
+    </script>
+</body>
+
+</html>

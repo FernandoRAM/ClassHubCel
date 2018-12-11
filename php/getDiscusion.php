@@ -7,7 +7,7 @@ $conexion->set_charset("utf8");
 
 $idF = $_GET['idF'];
 
-$select = "SELECT f.idForo, f.Titulo, f.Descripcion,f.idimagen, im.ruta, im.idImagen  FROM foro f, imagenes im WHERE f.idForo = '$idF' AND im.idImagen = f.idImagen";
+$select = "SELECT f.idForo, f.Titulo, f.Descripcion,f.idimagen,f.ruta, im.ruta, im.idImagen  FROM foro f, imagenes im WHERE f.idForo = '$idF' AND im.idImagen = f.idImagen";
 $result = $conexion->query($select);
 
 if($result->num_rows > 0) {

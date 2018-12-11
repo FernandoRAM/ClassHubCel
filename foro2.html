@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link href="./css/style.css" rel="stylesheet" media="screen">
+    <link href="./css/mobile-style.css" rel="stylesheet" media="screen"> -->
+    <script src="js/funciones.js"></script>
+    <title>Nueva discusión</title>
+</head>
+
+<body>
+    <center>
+        <div style="margin-top: 10%; text-align: justify; padding-left: 15px; padding-right: 15px;">
+            <center>
+                <h2>IMPORTANTE</h2>
+            </center>
+            <br>
+            <p>En esta sección podrás generar una <b>nueva discusión,</b> evita crear discusiones de asuntos triviales.
+                <b>No está permitido:</b> insultar, molestar, acosar o cualquier tipo de agresión hacia otros
+                estudiantes. Puedes reportar objetos perdidos, solicitar ayuda académica o administrativa. Si
+                consideras que el asunto que planteas no cumple con los requisitos para generar una nueva discusión
+                puedes
+                <a href="inicio.html">dar clic aquí para regresar al inicio</a> o bien, si consideras que tu asunto
+                debe ser atendido en la inmediatez puedes <a href="reporte.html">dar clic aquí para generar un reporte</a>.
+                Todo el contenido generado aquí es propiedad de su autor, ClassHub no se hace responsable por los
+                posibles daños causados por los usuarios.</p>
+        </div>
+        <div style="margin-top: 10%; text-align: justify; padding-left: 15px; padding-right: 15px;">
+            <div class="form-group">
+                <label for="">Título</label>
+                <input type="text" placeholder="Título del foro" class="form-control" id='tituloForo' required>
+                <br>
+                <label for="">Descripción</label>
+                <textarea id="descripcion" cols="30" rows="10" class="form-control" required placeholder="Descripción..."></textarea>
+                <br>
+                <!-- <label for="">Imagen (opcional)</label>
+                <div class='dropzone'>
+                    <div class='info'></div>
+                </div>
+                <br>
+                <center><img src="" alt="" id="showImage" style="width:80%"></center>
+                <br>
+                <input type="text" id="imagenURL" class="form-control" value="" hidden> -->
+                <button class="btn btn-danger" style="width: 100%" onclick="saveForo()">Enviar discusión</button>
+            </div>
+        </div>
+    </center>
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- <script src="js/imgur.js"></script>
+    <script src="js/upload.js"></script> -->
+    <script>
+        // Funcion verificaSesion() al inicializar la ventana
+        window.addEventListener('load', verificaSesion, true);
+    </script>
+</body>
+
+</html>

@@ -33,22 +33,22 @@
                 De lo contrario puedes continuar con el envío del reporte.</p>
         </div>
         <div style="margin-top: 10%; text-align: justify; padding-left: 15px; padding-right: 15px;">
-            <form action="post" enctype='multipart/form-data' class="form-group">
+            <div class="form-group">
                 <label for="">Título</label>
                 <input type="text" placeholder="Título del reporte" class="form-control" id='tituloReporte' required>
                 <br>
                 <label for="">Descripción</label>
-                <textarea id="descripcion" cols="30" rows="10" class="form-control" required></textarea>
+                <textarea id="descripcionReporte" cols="30" rows="10" class="form-control" required></textarea>
                 <br>
-                <label for="">Imagen (opcional)</label>
+                <!--<label for="">Imagen (opcional)</label>
                 <div class='dropzone'>
                     <div class='info'></div>
                 </div>
                 <br>
                 <br>
-                <input type="text" id="imagenURL" class="form-control" value="0" hidden>
-                <button class="btn btn-danger" style="width: 100%" onclick="upReporte()">Enviar reporte</button>
-            </form>
+                <input type="text" id="imagenURL" class="form-control" value="0" hidden> -->
+                <button class="btn btn-danger" style="width: 100%" onclick="saveReporte()">Enviar reporte</button>
+            </div>
         </div>
     </center>
 
