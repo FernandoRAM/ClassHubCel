@@ -731,16 +731,16 @@ function nuevoForo() {
     //console.log('No me piques we');
 
     var nf =
-        "<form method='POST' enctype='multipart/form-data '>" +
+        "<form method='POST' enctype='multipart/form-data' id='formUpForo'>" +
         "<ons-card style='height: 95%;'>" +
 
 
-        " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' float></ons-input><br><br>" +
+        " Título: <ons-input id='tituloForo' modifier='underbar' placeholder='' name='titulo' float></ons-input><br><br>" +
         "Descripción: <br> <br> <textarea style='font-size:15px;border:solid gray; width:95%; border-radius:10px;' name='descripcion' id='descripcion' cols='30' rows='10'></textarea> <br>" +
 
-        "<center><label><img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUpload' id='fileToUpload' style='display: none;' > </label><br></center>" +
+        "<center><label><img src='photo.png' style='max-width: 100px; max-height: 100px;'><input type='file' name='fileToUploadN' id='fileToUpload' style='display: none;'></label><br></center>" +
+        "<input type='text' value='"+ localStorage.getItem('idUsuario') + "' name='usuario'>" +
         "<center><label><ons-button onclick='upForo()' modifier='large'>Enviar</ons-button> </label> </center>" +
-
         "</ons-card>" +
         "</form>";
 
@@ -887,6 +887,31 @@ function buscarClase(val){
                 }
                 document.getElementById('clasesBuscadas').innerHTML += c ;
 
+                
+            }
+        }
+    }
+}
+
+function registrar(){
+    var exp = document.getElementById('expediente').value;
+    var contr = document.getElementById('pass').value;
+    var nom = document.getElementById('nombre').value;
+    console.log(contr);
+    if(exp.trim() != '' && contr.trim() != '' && nom.trim() != '' ){
+        var registroAjax = new XMLHttpRequest();
+        registroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/registrar.php?exp='+exp+'&pass='+pre_hash(contr)+'&nombre='+nom);
+        registroAjax.send();
+        registroAjax.onreadystatechange = function(){
+            if(registroAjax.readyState == 4 && registroAjax.status == 200){
+                var res = registroAjax.responseText;
+                //console.log(res);
+                if(res == 1){
+                    location.href = 'index.html';
+                }else{
+                    showToast('Error insesperado, intentalo de nuevo...');
+                }
+                
                 
             }
         }
