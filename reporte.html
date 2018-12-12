@@ -35,10 +35,10 @@
         <div style="margin-top: 10%; text-align: justify; padding-left: 15px; padding-right: 15px;">
             <div class="form-group">
                 <label for="">Título</label>
-                <input type="text" placeholder="Título del reporte" class="form-control" id='tituloReporte' required>
+                <input type="text" onkeyup="verificaCaracteres(this)" placeholder="Título del reporte" class="form-control" id='tituloReporte' required>
                 <br>
                 <label for="">Descripción</label>
-                <textarea id="descripcionReporte" cols="30" rows="10" class="form-control" required></textarea>
+                <textarea id="descripcionReporte" onkeyup="verificaCaracteres(this)" cols="30" rows="10" class="form-control" required></textarea>
                 <br>
                 <!--<label for="">Imagen (opcional)</label>
                 <div class='dropzone'>

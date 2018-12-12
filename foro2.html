@@ -32,10 +32,10 @@
         <div style="margin-top: 10%; text-align: justify; padding-left: 15px; padding-right: 15px;">
             <div class="form-group">
                 <label for="">Título</label>
-                <input type="text" placeholder="Título del foro" class="form-control" id='tituloForo' required>
+                <input type="text" onkeyup="verificaCaracteres(this)" placeholder="Título del foro" class="form-control" id='tituloForo' required>
                 <br>
                 <label for="">Descripción</label>
-                <textarea id="descripcion" cols="30" rows="10" class="form-control" required placeholder="Descripción..."></textarea>
+                <textarea id="descripcion"onkeyup="verificaCaracteres(this)" cols="30" rows="10" class="form-control" required placeholder="Descripción..."></textarea>
                 <br>
                 <!-- <label for="">Imagen (opcional)</label>
                 <div class='dropzone'>

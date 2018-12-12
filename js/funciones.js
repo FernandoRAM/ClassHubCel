@@ -1038,3 +1038,7 @@ function sinImagenReporte() {
     localStorage.imagenURL = '';
     upReporte();
 }
+function verificaCaracteres(input){
+    var regex = /[^0-9, a-z, ?, ¿, !, ¡, . , ( , ) ]/gi;
+    input.value = input.value.replace(regex, "");
+}
