@@ -1039,6 +1039,6 @@ function sinImagenReporte() {
     upReporte();
 }
 function verificaCaracteres(input){
-    var regex = /[^0-9, a-z, ?, ¿, !, ¡, . , ( , ) ]/gi;
+    var regex = /[^0-9, a-z, ?, ¿, !, ¡, . , ( , ), ó, ñ, á, í, é, ú ]/gi;
     input.value = input.value.replace(regex, "");
 }
