@@ -298,7 +298,7 @@ function upForo() {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
 
                 var respuesta = loginAjax.responseText;
-                alert(loginAjax.status);
+                //alert(loginAjax.status);
 
                 if (respuesta == '1') {
                     alert('¡Discusión publicada exitosamente!');
@@ -334,7 +334,7 @@ function upForo2() {
             if (loginAjax.readyState == 4 && loginAjax.status == 200) {
 
                 var respuesta = loginAjax.responseText;
-                alert(loginAjax.status);
+                //alert(loginAjax.status);
 
                 if (respuesta == '1') {
                     alert('¡Discusión publicada exitosamente!');
@@ -362,7 +362,7 @@ inferior al ser ejecutada y tener datos incorrectos en el login.
 */
 var showToast = function (msj) {
     ons.notification.toast(msj, {
-        timeout: 1000
+        timeout: 2000
     });
 };
 
@@ -537,7 +537,7 @@ function getForos() {
     foroAjax.onreadystatechange = function () {
         if (foroAjax.readyState == 4 && foroAjax.status == 200) {
             var f = JSON.parse(foroAjax.responseText);
-            console.log(f);
+            //console.log(f);
             for (var i = 0; i < f.length; i++) {
                 //console.log(f);
                 var item = "<ons-card onclick='verDiscusion(" + f[i].idForo + ")'>" +
@@ -658,7 +658,7 @@ function verTutor(id) {
     tutAjax.onreadystatechange = function () {
         if (tutAjax.readyState == 4 && tutAjax.status == 200) {
             var t = JSON.parse(tutAjax.responseText);
-            console.log(t);
+            //console.log(t);
 
 
             var tut =
@@ -729,7 +729,7 @@ function cargarComentarios(id) {
 
         if (comentAjax.readyState == 4 && comentAjax.status == 200) {
             var com = JSON.parse(comentAjax.responseText);
-            console.log(com);
+           // console.log(com);
             if (com != 0) {
                 for (var i = 0; i < com.length; i++) {
                     var c =
@@ -788,7 +788,7 @@ function verEvento(id) {
     evAjax.onreadystatechange = function () {
 
         if (evAjax.readyState == 4 && evAjax.status == 200) {
-            console.log(JSON.parse(evAjax.responseText));
+           // console.log(JSON.parse(evAjax.responseText));
             var ev = JSON.parse(evAjax.responseText);
             var eve = "<center><h3>" + ev[0].Nombre + "</h3></center>" +
                 "<ons-card>" +
@@ -908,7 +908,7 @@ function cargarConvocatorias() {
             var convocatoria = JSON.parse(convAjax.responseText);
 
             for (var i = 0; i < convocatoria.length; i++) {
-                console.log(convocatoria[i]);
+                //console.log(convocatoria[i]);
 
                 var c =
                     "<!-- Item tarjeta -->" +
@@ -928,7 +928,12 @@ function cargarConvocatorias() {
         }
     }
 }
-
+/**
+ * Función: buscarClase()
+ * @author Fernando Rincón
+ * Esta función obtiene como parámetro elvalor de la barra de búsqueda de lo que escribió el usuario y en base a eso busca una materia
+ * con ese nombre o con el nombre del profesor que escribió.
+ */
 function buscarClase(val) {
     document.getElementById('clasesBuscadas').innerHTML = '';
     var claseAjax = new XMLHttpRequest();
@@ -937,53 +942,61 @@ function buscarClase(val) {
     claseAjax.onreadystatechange = function () {
         if (claseAjax.readyState == 4 && claseAjax.status == 200) {
             var clas = JSON.parse(claseAjax.responseText);
-            console.log(clas);
-
-            for (var i = 0; i < clas.length; i++) {
-                var c = "";
-                if (clas[i].dias == 1) {
-                    c = " <ons-card>" +
-                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
-                        "<b>Dias:</b> Lunes y Miércoles <br><br>" +
-                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
-                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "  <br><br>" +
-                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
-                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
-                        " </ons-card>";
+            //console.log(clas);
+            if(val.trim() != ''){
+                for (var i = 0; i < clas.length; i++) {
+                    var c = "";
+                    if (clas[i].dias == 1) {
+                        c = " <ons-card>" +
+                            "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                            "<b>Dias:</b> Lunes y Miércoles <br><br>" +
+                            "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
+                            "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "  <br><br>" +
+                            "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                            "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                            " </ons-card>";
+                    }
+                    if (clas[i].dias == 2) {
+                        c = " <ons-card>" +
+                            "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                            "<b>Dias:</b> Martes y Jueves <br><br>" +
+                            "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
+                            "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "<br><br>" +
+                            "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                            "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                            " </ons-card>";
+                    }
+                    if (clas[i].dias == 3) {
+                        c = " <ons-card>" +
+                            "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
+                            "<b>Dias:</b> Viernes <br><br>" +
+                            "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + " <br><br>" +
+                            "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + " <br><br>" +
+                            "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
+                            "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
+                            " </ons-card>";
+                    }
+                    document.getElementById('clasesBuscadas').innerHTML += c;
                 }
-                if (clas[i].dias == 2) {
-                    c = " <ons-card>" +
-                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
-                        "<b>Dias:</b> Martes y Jueves <br><br>" +
-                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + "<br><br>" +
-                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + "<br><br>" +
-                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
-                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
-                        " </ons-card>";
-                }
-                if (clas[i].dias == 3) {
-                    c = " <ons-card>" +
-                        "<b>Materia:</b> " + clas[i].nombre + " <br><br>" +
-                        "<b>Dias:</b> Viernes <br><br>" +
-                        "<b>Horario:</b> " + clas[i].horaInicio + " - " + clas[i].horaFin + " <br><br>" +
-                        "<b>Aula(s):</b> " + clas[i].edificio + clas[i].numero + ' - ' + clas[i].salon2 + " <br><br>" +
-                        "<b>Profesor:</b> " + clas[i].nombreProfesor + " <br><br>" +
-                        "<b>Grupo:</b> " + clas[i].grupo + " <br><br>" +
-                        " </ons-card>";
-                }
-                document.getElementById('clasesBuscadas').innerHTML += c;
 
 
+            }else{
+                showToast('Completa los campos...');
             }
         }
     }
 }
-
+/**
+ * Función: registrar()
+ * @author Fernando Rincón
+ * Esta funcion registra al usuario con las credenciales que este introdujo en la pantalla de registro, la contraseña se hashea antes de
+ * ser enviada al servidor y posteriormente su información se almacena en la BD.
+ */
 function registrar() {
     var exp = document.getElementById('expediente').value;
     var contr = document.getElementById('pass').value;
     var nom = document.getElementById('nombre').value;
-    console.log(contr);
+    //console.log(contr);
     if (exp.trim() != '' && contr.trim() != '' && nom.trim() != '') {
         var registroAjax = new XMLHttpRequest();
         registroAjax.open('GET', 'http://classhub2.000webhostapp.com/php/App/registrar.php?exp=' + exp + '&pass=' + pre_hash(contr) + '&nombre=' + nom);
@@ -995,7 +1008,7 @@ function registrar() {
                 if (res == 1) {
                     location.href = 'index.html';
                 } else {
-                    showToast('Error insesperado, intentalo de nuevo...');
+                    showToast('Expediente ya registrado o Intentalo más tarde...');
                 }
 
 
