@@ -1018,9 +1018,14 @@ function registrar() {
 }
 
 function saveForo() {
-    localStorage.tituloForo = document.getElementById('tituloForo').value;
-    localStorage.descripcionForo = document.getElementById('descripcion').value;
-    window.location = 'imagenForo.html';
+    if((document.getElementById('tituloForo').value).trim() != '' && (document.getElementById('descripcion').value).trim != '' ){
+            localStorage.tituloForo = document.getElementById('tituloForo').value;
+            localStorage.descripcionForo = document.getElementById('descripcion').value;
+            window.location = 'imagenForo.html';
+    }else{
+        alert('Completa los campos...');
+    }
+    
 }
 
 function sinImagen() {
@@ -1029,9 +1034,14 @@ function sinImagen() {
 }
 
 function saveReporte() {
-    localStorage.tituloReporte = document.getElementById('tituloReporte').value;
-    localStorage.descripcionReporte = document.getElementById('descripcionReporte').value;
-    window.location = 'imagenReporte.html';
+    if(( document.getElementById('tituloReporte').value).trim() != '' && (document.getElementById('descripcionReporte').value).trim() != ''){
+        localStorage.tituloReporte = document.getElementById('tituloReporte').value;
+        localStorage.descripcionReporte = document.getElementById('descripcionReporte').value;
+        window.location = 'imagenReporte.html';
+    }else{
+        alert('Completa los campos...');
+    }
+   
 }
 
 function sinImagenReporte() {
